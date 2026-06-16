@@ -137,6 +137,12 @@ body { font-family: 'Poppins', sans-serif; color: var(--text); line-height: 1.6;
   display: flex; align-items: center; justify-content: center;
   gap: 36px; margin-top: 72px; flex-wrap: wrap;
 }
+@media (max-width: 640px) {
+  .hero { padding: 100px 16px 60px; }
+  .hero-stats { gap: 20px; margin-top: 40px; }
+  .hdiv { display: none; }
+  .hstat-n { font-size: 22px; }
+}
 .hstat { text-align: center; }
 .hstat-n { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
 .hstat-l { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 4px; letter-spacing: .03em; }
@@ -158,6 +164,7 @@ body { font-family: 'Poppins', sans-serif; color: var(--text); line-height: 1.6;
 
 /* ── SHARED SECTION ──────────────── */
 section { padding: 96px 24px; }
+@media (max-width: 640px) { section { padding: 48px 16px; } }
 .wrap { max-width: 1100px; margin: 0 auto; }
 .stag {
   display: inline-block; font-size: 11px; font-weight: 700;
