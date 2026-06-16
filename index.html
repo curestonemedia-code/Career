@@ -3,588 +3,860 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Editor Application — CureStone</title>
+<title>Join Cure Stone — Video Editor Opening</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --blue: #2B5CE6;
-    --blue-light: #EBF0FD;
-    --blue-mid: #c7d6f9;
-    --text: #111827;
-    --text-2: #4B5563;
-    --text-3: #9CA3AF;
-    --border: #E5E7EB;
-    --border-2: #D1D5DB;
-    --bg: #F9FAFB;
-    --white: #ffffff;
-    --success-bg: #F0FDF4;
-    --success-border: #86EFAC;
-    --success-text: #166534;
-    --danger: #EF4444;
-    --radius: 10px;
-    --radius-sm: 7px;
-  }
+:root {
+  --blue: #2B5CE6;
+  --blue-dark: #1a3dcc;
+  --blue-light: #EBF0FD;
+  --blue-mid: #c7d6f9;
+  --text: #111827;
+  --text-2: #4B5563;
+  --text-3: #9CA3AF;
+  --border: #E5E7EB;
+  --bg: #F9FAFB;
+  --white: #ffffff;
+}
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 40px 16px 80px;
-  }
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; color: var(--text); line-height: 1.6; }
 
-  .page-wrap {
-    max-width: 680px;
-    margin: 0 auto;
-  }
+/* ── NAV ─────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; padding: 0 32px; height: 64px;
+  background: rgba(10, 18, 40, 0.92); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; }
+.nav-logo-img { height: 36px; width: auto; display: block; filter: brightness(0) invert(1); }
+.nav-links { display: flex; align-items: center; gap: 28px; margin-left: 40px; list-style: none; }
+.nav-links a { color: rgba(255,255,255,.65); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .15s; }
+.nav-links a:hover { color: #fff; }
+.nav-socials { display: flex; align-items: center; gap: 4px; margin-left: auto; margin-right: 12px; }
+.nav-social {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.6); transition: background .15s, color .15s;
+}
+.nav-social svg { width: 17px; height: 17px; }
+.nav-social:hover { background: rgba(255,255,255,.1); color: #fff; }
 
-  /* Header */
-  .header {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 28px 32px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .logo-box {
-    width: 48px; height: 48px;
-    background: var(--blue);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .logo-box svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 1.8; }
-  .header-text h1 { font-size: 18px; font-weight: 600; line-height: 1.3; }
-  .header-text p { font-size: 13px; color: var(--text-2); margin-top: 3px; }
-  .badge {
-    margin-left: auto;
-    background: #DCFCE7; color: #15803D;
-    font-size: 11px; font-weight: 500;
-    padding: 4px 10px; border-radius: 20px;
-    white-space: nowrap; flex-shrink: 0;
-  }
+.nav-cta {
+  background: var(--blue); color: #fff; text-decoration: none;
+  font-size: 14px; font-weight: 600; padding: 9px 20px; border-radius: 8px;
+  transition: background .15s, transform .1s;
+}
+.nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+@media (max-width: 640px) { .nav-links { display: none; } .nav { padding: 0 20px; } }
 
-  /* Card */
-  .card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 28px 32px;
-    margin-bottom: 16px;
-  }
+/* ── HERO ────────────────────────── */
+.hero {
+  min-height: 100vh;
+  background: #070e24;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 120px 24px 100px; position: relative; overflow: hidden;
+}
 
-  /* Section label */
-  .sec-label {
-    font-size: 11px; font-weight: 600;
-    letter-spacing: .08em;
-    color: var(--text-3);
-    text-transform: uppercase;
-    margin-bottom: 18px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
+/* Background video */
+.hero-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 0; pointer-events: none;
+}
 
-  /* Fields */
-  .field { margin-bottom: 18px; }
-  .field:last-child { margin-bottom: 0; }
-  .field label {
-    display: block;
-    font-size: 13px; font-weight: 500;
-    color: var(--text-2);
-    margin-bottom: 6px;
-  }
-  .req { color: var(--danger); margin-left: 2px; }
-  .hint { font-size: 12px; color: var(--text-3); margin-top: 5px; }
+/* Dark gradient overlay on top of video so text is always readable */
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(140deg,
+    rgba(7,14,36,.85) 0%,
+    rgba(13,31,92,.75) 50%,
+    rgba(26,63,181,.65) 100%);
+}
 
-  input[type=text], input[type=email], input[type=tel],
-  input[type=number], input[type=url], select, textarea {
-    width: 100%;
-    padding: 10px 13px;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
-    border: 1px solid var(--border-2);
-    border-radius: var(--radius-sm);
-    background: var(--white);
-    color: var(--text);
-    transition: border-color .15s, box-shadow .15s;
-    appearance: none;
-  }
-  input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus,
-  input[type=number]:focus, input[type=url]:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(43,92,230,.1);
-  }
-  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
-  textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+/* Grid lines sit above overlay */
+.hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background-image: linear-gradient(rgba(43,92,230,.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43,92,230,.1) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+.blob {
+  position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: 2;
+}
+.blob-1 { width: 640px; height: 640px; background: rgba(43,92,230,.18); top: -220px; right: -200px; }
+.blob-2 { width: 420px; height: 420px; background: rgba(99,102,241,.14); bottom: -120px; left: -120px; }
 
-  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 520px) { .row-2 { grid-template-columns: 1fr; } }
+.hero-inner { position: relative; z-index: 3; max-width: 800px; }
 
-  /* Salary row */
-  .sal-row { display: grid; grid-template-columns: 76px 1fr; gap: 8px; align-items: center; }
-  .cur-badge {
-    padding: 10px 8px;
-    font-size: 12px; font-weight: 500;
-    border: 1px solid var(--border-2);
-    border-radius: var(--radius-sm);
-    background: var(--bg);
-    color: var(--text-2);
-    text-align: center;
-  }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(43,92,230,.22); border: 1px solid rgba(43,92,230,.45);
+  color: #93c5fd; font-size: 11px; font-weight: 700;
+  padding: 6px 16px; border-radius: 20px; margin-bottom: 30px;
+  letter-spacing: .07em; text-transform: uppercase;
+}
+.pulse { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: pdot 2s ease-in-out infinite; }
+@keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.55;transform:scale(.8)} }
 
-  /* Upload zone */
-  .upload-zone {
-    border: 1.5px dashed var(--border-2);
-    border-radius: var(--radius);
-    padding: 28px 20px;
-    text-align: center;
-    cursor: pointer;
-    background: var(--bg);
-    position: relative;
-    transition: border-color .15s, background .15s;
-  }
-  .upload-zone:hover { border-color: var(--blue); background: var(--blue-light); }
-  .upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-  .upload-zone svg { width: 32px; height: 32px; stroke: var(--blue); fill: none; stroke-width: 1.5; margin: 0 auto 10px; display: block; }
-  .upload-zone .uz-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
-  .upload-zone .uz-sub { font-size: 12px; color: var(--text-3); }
-  .upload-ok {
-    display: none;
-    align-items: center; gap: 10px;
-    background: var(--success-bg);
-    border: 1px solid var(--success-border);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    margin-top: 10px;
-  }
-  .upload-ok svg { width: 18px; height: 18px; stroke: var(--success-text); fill: none; stroke-width: 2; flex-shrink: 0; }
-  .upload-ok span { font-size: 13px; font-weight: 500; color: var(--success-text); }
+.hero h1 {
+  font-size: clamp(38px, 6.5vw, 74px); font-weight: 800;
+  color: #fff; line-height: 1.08; letter-spacing: -.035em; margin-bottom: 24px;
+}
+.hero h1 .grad {
+  background: linear-gradient(90deg, #60a5fa 0%, #a78bfa 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(15px, 2vw, 19px); color: rgba(255,255,255,.62);
+  max-width: 520px; margin: 0 auto 42px; line-height: 1.75;
+}
+.hero-sub strong { color: rgba(255,255,255,.88); font-weight: 600; }
 
-  /* Chip grid */
-  .chip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 8px; }
-  .chip {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 11px 13px;
-    cursor: pointer;
-    background: var(--white);
-    position: relative;
-    transition: border-color .15s, background .15s;
-    user-select: none;
-  }
-  .chip:hover { border-color: var(--blue-mid); }
-  .chip input[type=checkbox] { position: absolute; opacity: 0; width: 0; height: 0; }
-  .chip.on { border-color: var(--blue); background: var(--blue-light); }
-  .chip .cn { font-size: 13px; font-weight: 500; color: var(--text); }
-  .chip .ct { font-size: 11px; color: var(--text-3); margin-top: 2px; }
-  .chip .check-dot {
-    position: absolute; top: 8px; right: 8px;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: var(--blue-light); border: 1px solid var(--blue-mid);
-    display: none;
-    align-items: center; justify-content: center;
-  }
-  .chip.on .check-dot { display: flex; background: var(--blue); border-color: var(--blue); }
-  .check-dot svg { width: 9px; height: 9px; stroke: #fff; fill: none; stroke-width: 3; }
-  .prow { margin-top: 8px; display: none; }
-  .prow.vis { display: block; }
-  .psel {
-    width: 100%; padding: 6px 10px; font-size: 12px;
-    font-family: 'Poppins', sans-serif;
-    border: 1px solid var(--border-2);
-    border-radius: 6px;
-    background: var(--white);
-    color: var(--text-2);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 8px center;
-    padding-right: 28px; appearance: none;
-  }
-  .psel:focus { outline: none; border-color: var(--blue); }
-  .psel { pointer-events: auto; }
+.hero-btns { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--blue); color: #fff; text-decoration: none;
+  font-size: 15px; font-weight: 600; padding: 14px 30px; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: 9px;
+  box-shadow: 0 4px 28px rgba(43,92,230,.5);
+  transition: background .15s, transform .12s, box-shadow .15s;
+}
+.btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 36px rgba(43,92,230,.55); }
+.btn-ghost {
+  color: rgba(255,255,255,.78); text-decoration: none; font-size: 15px; font-weight: 500;
+  padding: 14px 24px; border-radius: 10px; border: 1px solid rgba(255,255,255,.18);
+  display: inline-flex; align-items: center; gap: 8px; transition: background .15s, color .15s;
+}
+.btn-ghost:hover { background: rgba(255,255,255,.08); color: #fff; }
+.arr { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.4; }
 
-  /* Submit */
-  .submit-btn {
-    width: 100%; padding: 14px;
-    background: var(--blue); color: #fff;
-    border: none; border-radius: var(--radius);
-    font-size: 15px; font-weight: 600;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    transition: opacity .15s, transform .1s;
-    margin-top: 8px;
-    letter-spacing: .01em;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .submit-btn:hover:not(:disabled) { opacity: .93; }
-  .submit-btn:active:not(:disabled) { transform: scale(.99); }
-  .submit-btn:disabled { opacity: .65; cursor: not-allowed; }
+.hero-stats {
+  display: flex; align-items: center; justify-content: center;
+  gap: 36px; margin-top: 72px; flex-wrap: wrap;
+}
+.hstat { text-align: center; }
+.hstat-n { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+.hstat-l { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 4px; letter-spacing: .03em; }
+.hdiv { width: 1px; height: 40px; background: rgba(255,255,255,.13); }
 
-  .spinner {
-    width: 16px; height: 16px;
-    border: 2px solid rgba(255,255,255,.4);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin .7s linear infinite;
-    display: none;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+.scroll-cue {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,.3); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  z-index: 3;
+}
+.scroll-ring {
+  width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(255,255,255,.18);
+  display: flex; align-items: center; justify-content: center;
+  animation: bob 2s ease-in-out infinite;
+}
+.scroll-ring svg { width: 12px; height: 12px; stroke: rgba(255,255,255,.45); fill: none; stroke-width: 2; }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
 
-  .footer-note {
-    text-align: center;
-    font-size: 12px;
-    color: var(--text-3);
-    margin-top: 14px;
-  }
+/* ── SHARED SECTION ──────────────── */
+section { padding: 96px 24px; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+.stag {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--blue); background: var(--blue-light);
+  padding: 4px 13px; border-radius: 20px; margin-bottom: 14px;
+}
+.stitle {
+  font-size: clamp(26px, 4vw, 44px); font-weight: 800;
+  line-height: 1.12; letter-spacing: -.025em; margin-bottom: 14px;
+}
+.ssub { font-size: 16px; color: var(--text-2); line-height: 1.75; max-width: 560px; }
 
-  /* Error banner */
-  .error-banner {
-    display: none;
-    background: #FEF2F2;
-    border: 1px solid #FECACA;
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    font-size: 13px;
-    color: #991B1B;
-    margin-top: 12px;
-    text-align: center;
-  }
+/* ── ABOUT ───────────────────────── */
+#about { background: var(--white); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+}
+@media (max-width: 780px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
 
-  /* Success */
-  .success-card {
-    display: none;
-    background: var(--success-bg);
-    border: 1px solid var(--success-border);
-    border-radius: 14px;
-    padding: 40px 32px;
-    text-align: center;
-    margin-top: 16px;
-  }
-  .success-card svg { width: 52px; height: 52px; stroke: var(--success-text); fill: none; stroke-width: 1.5; margin: 0 auto 16px; display: block; }
-  .success-card h3 { font-size: 20px; font-weight: 600; color: var(--success-text); margin-bottom: 8px; }
-  .success-card p { font-size: 14px; color: var(--success-text); opacity: .8; }
+.pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 500; color: var(--text-2);
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 8px 14px; border-radius: 8px;
+}
+.pill svg { width: 16px; height: 16px; stroke: var(--blue); fill: none; stroke-width: 2; flex-shrink: 0; }
+
+.metrics-col {
+  background: linear-gradient(140deg, #eff6ff, #ede9fe);
+  border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 16px;
+}
+.metric {
+  background: var(--white); border-radius: 12px; padding: 18px 22px;
+  display: flex; align-items: center; gap: 16px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.05);
+}
+.mico {
+  width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.mico svg { width: 22px; height: 22px; fill: none; stroke-width: 1.8; }
+.mico.bl { background: #dbeafe; } .mico.bl svg { stroke: #2563eb; }
+.mico.gr { background: #dcfce7; } .mico.gr svg { stroke: #16a34a; }
+.mico.pu { background: #ede9fe; } .mico.pu svg { stroke: #7c3aed; }
+.mico.or { background: #ffedd5; } .mico.or svg { stroke: #ea580c; }
+.mnum { font-size: 22px; font-weight: 800; color: var(--text); line-height: 1; }
+.mlbl { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+/* ── DOCTOR ──────────────────────── */
+#doctor { background: var(--bg); }
+.doc-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 20px;
+  padding: 48px; display: grid; grid-template-columns: 220px 1fr;
+  gap: 48px; align-items: start; max-width: 900px; margin: 48px auto 0;
+}
+@media (max-width: 700px) {
+  .doc-card { grid-template-columns: 1fr; gap: 24px; padding: 24px 18px; }
+  .doc-photo-col { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+  .doc-avatar { width: 130px; height: 130px; }
+  .doc-name-side { display: none; }
+  .doc-name-inline { display: block; text-align: center; }
+  .dname { font-size: 20px; }
+  .dtitle { font-size: 13px; }
+  .dbio { font-size: 14px; }
+  .dtags { justify-content: center; }
+}
+.doc-avatar {
+  width: 180px; height: 180px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, #dbeafe, #ede9fe);
+  display: flex; align-items: center; justify-content: center;
+  border: 4px solid var(--white); box-shadow: 0 4px 24px rgba(43,92,230,.14);
+  overflow: hidden;
+}
+.doc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.doc-avatar-placeholder svg { width: 90px; height: 90px; }
+.doc-name-inline { display: none; }
+@media (max-width: 700px) { .doc-name-inline { display: block; } }
+.dname { font-size: 26px; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; }
+.dtitle { font-size: 13px; color: var(--blue); font-weight: 600; margin-top: 4px; }
+.dbio { font-size: 15px; color: var(--text-2); line-height: 1.78; margin-top: 20px; text-align: justify; }
+.dtags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.dtag {
+  font-size: 12px; font-weight: 600; padding: 5px 12px;
+  border-radius: 6px; background: var(--blue-light); color: var(--blue);
+}
+
+/* ── VIDEOS ──────────────────────── */
+#videos { background: var(--white); }
+.vid-intro { margin-bottom: 40px; }
+.vid-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.vid-wrap {
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,.1);
+  aspect-ratio: 16/9; background: #0f172a;
+}
+.vid-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+/* ── SHORTS ──────────────────────── */
+.shorts-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 700; color: var(--text);
+  margin-top: 48px; margin-bottom: 20px;
+}
+.shorts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.short-wrap {
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,.1);
+  aspect-ratio: 9/16; background: #0f172a;
+}
+.short-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+@media (max-width: 720px) { .shorts-grid { grid-template-columns: 1fr; } }
+
+/* ── WATCH MORE BTN ─────────────── */
+.watch-more-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #FF0000; color: #fff; text-decoration: none;
+  font-size: 14px; font-weight: 600; padding: 13px 28px;
+  border-radius: 10px; transition: background .15s, transform .12s;
+  box-shadow: 0 4px 16px rgba(255,0,0,.3);
+}
+.watch-more-btn:hover { background: #cc0000; transform: translateY(-2px); }
+
+/* ── ROLE ────────────────────────── */
+#role { background: var(--bg); }
+.role-header {
+  background: linear-gradient(140deg, #0a1228, #1a3a8a);
+  border-radius: 20px; padding: 36px 44px; margin-bottom: 28px;
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+}
+@media (max-width: 600px) { .role-header { padding: 24px 22px; } }
+.ricon {
+  width: 60px; height: 60px; background: rgba(255,255,255,.1);
+  border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.ricon svg { width: 30px; height: 30px; stroke: #fff; fill: none; stroke-width: 1.6; }
+.rtitle-wrap { flex: 1; min-width: 180px; }
+.rtitle { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -.02em; }
+.rmeta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.rchip { font-size: 12px; font-weight: 600; padding: 4px 11px; border-radius: 6px; background: rgba(255,255,255,.12); color: rgba(255,255,255,.82); }
+.rchip.gr { background: rgba(74,222,128,.18); color: #86efac; }
+.rsalary { text-align: right; }
+.rsalary-lbl { font-size: 11px; color: rgba(255,255,255,.45); margin-bottom: 2px; }
+.rsalary-val { font-size: 21px; font-weight: 800; color: #fff; }
+@media (max-width: 480px) { .rsalary { text-align: left; } }
+
+.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 720px) { .role-grid { grid-template-columns: 1fr; } }
+
+.rcard {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 26px;
+}
+.rcard-head {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 18px;
+}
+.rcico {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.rcico svg { width: 14px; height: 14px; fill: none; stroke-width: 2; }
+.rcico.bl { background: #dbeafe; } .rcico.bl svg { stroke: #2563eb; }
+.rcico.gr { background: #dcfce7; } .rcico.gr svg { stroke: #16a34a; }
+.rcico.or { background: #ffedd5; } .rcico.or svg { stroke: #ea580c; }
+.rcico.pu { background: #ede9fe; } .rcico.pu svg { stroke: #7c3aed; }
+
+.cklist { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.cklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
+.cbul {
+  width: 18px; height: 18px; min-width: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; margin-top: 1px; flex-shrink: 0;
+}
+.cbul svg { width: 9px; height: 9px; fill: none; stroke-width: 3; }
+.cbul.bl { background: #dbeafe; } .cbul.bl svg { stroke: #2563eb; }
+.cbul.gr { background: #dcfce7; } .cbul.gr svg { stroke: #16a34a; }
+.cbul.or { background: #ffedd5; } .cbul.or svg { stroke: #ea580c; }
+.cbul.pu { background: #ede9fe; } .cbul.pu svg { stroke: #7c3aed; }
+
+/* ── WEEK LIST ───────────────────── */
+.week-list { display: flex; flex-direction: column; gap: 0; }
+.week-item {
+  display: grid; grid-template-columns: 80px 1fr; gap: 12px;
+  align-items: start; padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.week-item:last-child { border-bottom: none; padding-bottom: 0; }
+.week-tag {
+  font-size: 12px; font-weight: 700; color: var(--blue);
+  background: var(--blue-light); padding: 3px 10px;
+  border-radius: 6px; text-align: center; white-space: nowrap;
+  margin-top: 2px;
+}
+.week-desc { font-size: 13.5px; color: var(--text-2); line-height: 1.6; }
+
+/* ── PERKS ───────────────────────── */
+#perks { background: var(--white); }
+.perks-intro { text-align: center; max-width: 560px; margin: 0 auto 48px; }
+.perks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 768px) { .perks-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .perks-grid { grid-template-columns: 1fr; } }
+.pcard {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
+  padding: 28px 22px; text-align: center;
+  transition: border-color .15s, box-shadow .15s;
+}
+.pcard:hover { border-color: var(--blue-mid); box-shadow: 0 4px 18px rgba(43,92,230,.1); }
+.pico {
+  width: 52px; height: 52px; border-radius: 14px;
+  margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;
+}
+.pico svg { width: 26px; height: 26px; fill: none; stroke-width: 1.7; }
+.pname { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+.pdesc { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+
+/* ── CTA ─────────────────────────── */
+#apply {
+  background: linear-gradient(140deg, #070e24 0%, #0f2460 60%, #1a3fb5 100%);
+  text-align: center; position: relative; overflow: hidden;
+}
+#apply::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(43,92,230,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43,92,230,.09) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+.cta-inner { position: relative; }
+.ctag {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: #93c5fd; background: rgba(43,92,230,.22);
+  border: 1px solid rgba(43,92,230,.38);
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+}
+#apply h2 {
+  font-size: clamp(28px, 5vw, 54px); font-weight: 800; color: #fff;
+  line-height: 1.12; letter-spacing: -.03em; margin-bottom: 16px;
+}
+#apply .cp {
+  font-size: 17px; color: rgba(255,255,255,.58);
+  margin: 0 auto 40px; max-width: 460px; line-height: 1.7;
+}
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: var(--text); text-decoration: none;
+  font-size: 16px; font-weight: 700; padding: 16px 38px;
+  border-radius: 12px; box-shadow: 0 4px 28px rgba(0,0,0,.28);
+  transition: transform .15s, box-shadow .15s;
+}
+.cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(0,0,0,.32); }
+.cta-btn svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 2.2; }
+.cnote { margin-top: 22px; font-size: 13px; color: rgba(255,255,255,.38); }
+.cnote a { color: rgba(255,255,255,.55); }
+.cnote a:hover { color: rgba(255,255,255,.82); }
+
+/* ── FOOTER ──────────────────────── */
+footer {
+  background: #050b18; text-align: center; padding: 32px 24px;
+}
+footer p { font-size: 12px; color: rgba(255,255,255,.28); line-height: 1.8; }
+footer a { color: rgba(255,255,255,.42); text-decoration: none; }
+footer a:hover { color: rgba(255,255,255,.75); }
 </style>
 </head>
 <body>
 
-<div class="page-wrap">
-
-  <!-- Header -->
-  <div class="header">
-    <div class="logo-box">
-      <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-    </div>
-    <div class="header-text">
-      <h1>Video Editor Application</h1>
-      <p>Cure Stone LLP · Gurugram</p>
-    </div>
-    <span class="badge">Now hiring</span>
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <img src="logo.png" alt="Cure Stone" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#doctor">Founder</a></li>
+    <li><a href="#videos">Our Work</a></li>
+    <li><a href="#role">The Role</a></li>
+  </ul>
+  <div class="nav-socials">
+    <a href="https://www.youtube.com/@cure_stone" target="_blank" class="nav-social" title="YouTube">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/the_cure_stone/" target="_blank" class="nav-social" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://www.facebook.com/curestone" target="_blank" class="nav-social" title="Facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
   </div>
+  <a href="apply.html" class="nav-cta">Apply Now →</a>
+</nav>
 
-  <!-- Personal Details -->
-  <div class="card">
-    <div class="sec-label">Personal details</div>
-    <div class="row-2">
-      <div class="field"><label>Full name <span class="req">*</span></label><input type="text" id="name" placeholder="Your full name"></div>
-      <div class="field"><label>Phone number <span class="req">*</span></label><input type="tel" id="phone" placeholder="+91 98765 43210"></div>
+<!-- HERO -->
+<div class="hero">
+  <!--
+    Once you generate the video from Google Flow / Veo, save it as hero-bg.mp4
+    in the same folder (c:\CureStone-Careers\hero-bg.mp4) and it will appear here.
+    The dark overlay above keeps all text readable regardless of the video.
+  -->
+  <video class="hero-video" autoplay loop muted playsinline poster="">
+    <source src="hero-bg.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="pulse"></span> Now Hiring &nbsp;·&nbsp; On-site &nbsp;·&nbsp; Gurugram</div>
+    <h1>Create Content That<br><span class="grad">Heals &amp; Inspires</span></h1>
+    <p class="hero-sub">
+      We're <strong>Cure Stone</strong> — a growing healthcare brand in Gurugram, building content that educates and inspires.
+      We're hiring a talented <strong>Video Editor</strong> to bring our medical stories to life.
+    </p>
+    <div class="hero-btns">
+      <a href="apply.html" class="btn-primary">
+        Apply Now
+        <svg class="arr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#role" class="btn-ghost">
+        <svg class="arr" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        View the role
+      </a>
     </div>
-    <div class="row-2">
-      <div class="field"><label>Email address <span class="req">*</span></label><input type="email" id="email" placeholder="you@email.com"></div>
-      <div class="field"><label>City / Location</label><input type="text" id="city" placeholder="e.g. Gurugram, Delhi"></div>
-    </div>
-  </div>
-
-  <!-- Compensation -->
-  <div class="card">
-    <div class="sec-label">Compensation</div>
-    <div class="row-2">
-      <div class="field">
-        <label>Current salary (monthly) <span class="req">*</span></label>
-        <div class="sal-row">
-          <div class="cur-badge">₹ / mo</div>
-          <input type="number" id="cur_sal" placeholder="e.g. 25000" min="0">
-        </div>
-        <div class="hint">Enter 0 if fresher or intern</div>
-      </div>
-      <div class="field">
-        <label>Expected salary (monthly) <span class="req">*</span></label>
-        <div class="sal-row">
-          <div class="cur-badge">₹ / mo</div>
-          <input type="number" id="exp_sal" placeholder="e.g. 35000" min="0">
-        </div>
-      </div>
-    </div>
-    <div class="row-2">
-      <div class="field"><label>Availability to join</label><select id="notice"><option value="">Select</option><option>Immediately</option><option>Within 1 week</option><option>Within 2 weeks</option><option>Within 1 month</option><option>More than 1 month</option></select></div>
-      <div class="field"><label>Work mode</label><input type="text" value="On-site (Gurugram)" readonly style="background:var(--bg);color:var(--text-2);cursor:default;"></div>
-    </div>
-  </div>
-
-  <!-- Resume -->
-  <div class="card">
-    <div class="sec-label">Resume / CV</div>
-    <div class="field">
-      <div class="upload-zone" id="rzone">
-        <input type="file" id="rfile" accept=".pdf,.doc,.docx" onchange="handleResume(this)">
-        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <div class="uz-title">Click or drag to upload your resume</div>
-        <div class="uz-sub">PDF, DOC, or DOCX · Max 5 MB</div>
-      </div>
-      <div class="upload-ok" id="rok">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        <span id="rfname">resume.pdf uploaded</span>
-      </div>
-      <div class="hint" style="margin-top:8px">Or paste a Google Drive / Dropbox link below</div>
-      <input type="url" id="rlink" placeholder="https://drive.google.com/..." style="margin-top:8px">
+    <!-- Update these stats to match your actual channel numbers -->
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">730K+</div><div class="hstat-l">YouTube Subscribers</div></div>
+      <div class="hdiv"></div>
+      <div class="hstat"><div class="hstat-n">100M+</div><div class="hstat-l">Total Views</div></div>
+      <div class="hdiv"></div>
+      <div class="hstat"><div class="hstat-n">5+ yrs</div><div class="hstat-l">Publishing content</div></div>
+      <div class="hdiv"></div>
+      <div class="hstat"><div class="hstat-n">Gurugram</div><div class="hstat-l">On-site role</div></div>
     </div>
   </div>
-
-  <!-- Portfolio -->
-  <div class="card">
-    <div class="sec-label">Portfolio</div>
-    <div class="row-2">
-      <div class="field"><label>Portfolio / Drive link</label><input type="url" id="port" placeholder="Google Drive, Behance..."></div>
-      <div class="field"><label>Instagram / YouTube channel</label><input type="url" id="social" placeholder="https://www.instagram.com/..."></div>
-    </div>
-    <div class="field"><label>2–3 best work sample links</label><textarea id="samples" placeholder="Paste video links — one per line. Reels, Shorts, YouTube..."></textarea></div>
+  <div class="scroll-cue">
+    <span>Scroll to explore</span>
+    <div class="scroll-ring"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
   </div>
-
-  <!-- Experience -->
-  <div class="card">
-    <div class="sec-label">Experience</div>
-    <div class="row-2">
-      <div class="field"><label>Years of editing experience <span class="req">*</span></label><select id="exp"><option value="">Select</option><option>Less than 1 year (fresher)</option><option>1–2 years</option><option>2–4 years</option><option>4–6 years</option><option>6+ years</option></select></div>
-      <div class="field"><label>Employment type sought</label><select id="emptype"><option value="">Select</option><option>Full-time</option><option>Part-time</option><option>Freelance / Contract</option><option>Internship</option></select></div>
-    </div>
-    <div class="field">
-      <label>Content types edited (select all that apply)</label>
-      <div class="chip-grid" id="content-chips" style="margin-top:8px">
-        <label class="chip" onclick="tc(this, event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Reels / Shorts</div><div class="ct">Social media</div></label>
-        <label class="chip" onclick="tc(this, event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">YouTube long-form</div><div class="ct">10+ min videos</div></label>
-        <label class="chip" onclick="tc(this, event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Medical / Healthcare</div><div class="ct">Clinic, hospital</div></label>
-        <label class="chip" onclick="tc(this, event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Corporate / Brand</div><div class="ct">Ads, promos</div></label>
-        <label class="chip" onclick="tc(this, event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Motion graphics</div><div class="ct">AE, animations</div></label>
-        <label class="chip" onclick="tc(this, event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Thumbnail design</div><div class="ct">YouTube, social</div></label>
-      </div>
-    </div>
-  </div>
-
-  <!-- Video Editing Software -->
-  <div class="card">
-    <div class="sec-label">Video editing software</div>
-    <p style="font-size:13px;color:var(--text-2);margin-bottom:14px">Select tools you use and choose your proficiency level.</p>
-    <div class="chip-grid" id="ve-chips">
-      <label class="chip" onclick="ta(this,'ve1',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Premiere Pro</div><div class="ct">Adobe</div><div class="prow" id="ve1"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ve2',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">After Effects</div><div class="ct">Adobe</div><div class="prow" id="ve2"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ve4',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Final Cut Pro</div><div class="ct">Apple</div><div class="prow" id="ve4"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ve5',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">CapCut</div><div class="ct">Desktop / Mobile</div><div class="prow" id="ve5"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ve7',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Filmora</div><div class="ct">Wondershare</div><div class="prow" id="ve7"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ve8',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">iMovie</div><div class="ct">Apple</div><div class="prow" id="ve8"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-    </div>
-    <div class="field" style="margin-top:14px"><label>Other video editing tools</label><input type="text" id="veOther" placeholder="e.g. Kdenlive, Resolve Fusion, Premiere Rush..."></div>
-  </div>
-
-  <!-- Photo Editing Software -->
-  <div class="card">
-    <div class="sec-label">Photo editing software</div>
-    <p style="font-size:13px;color:var(--text-2);margin-bottom:14px">Select tools you use and choose your proficiency level.</p>
-    <div class="chip-grid" id="pe-chips">
-      <label class="chip" onclick="ta(this,'pe1',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Photoshop</div><div class="ct">Adobe</div><div class="prow" id="pe1"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'pe2',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Lightroom</div><div class="ct">Adobe</div><div class="prow" id="pe2"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'pe3',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Canva</div><div class="ct">Web / Design</div><div class="prow" id="pe3"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'pe5',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Illustrator</div><div class="ct">Adobe</div><div class="prow" id="pe5"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'pe6',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Snapseed</div><div class="ct">Mobile</div><div class="prow" id="pe6"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-      <label class="chip" onclick="ta(this,'pe7',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Pixlr</div><div class="ct">Web / App</div><div class="prow" id="pe7"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option><option>Expert</option></select></div></label>
-    </div>
-    <div class="field" style="margin-top:14px"><label>Other photo editing tools</label><input type="text" id="peOther" placeholder="e.g. Affinity Photo, Darkroom, Capture One..."></div>
-  </div>
-
-  <!-- AI Video Generation Tools -->
-  <div class="card">
-    <div class="sec-label">AI video generation tools</div>
-    <p style="font-size:13px;color:var(--text-2);margin-bottom:14px">Select all tools you have used and rate your proficiency.</p>
-    <div class="chip-grid" id="ai-chips">
-      <label class="chip" onclick="ta(this,'ai1',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Flow</div><div class="ct">Google</div><div class="prow" id="ai1"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai2',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Sora</div><div class="ct">OpenAI</div><div class="prow" id="ai2"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai3',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Runway ML</div><div class="ct">Gen-3, video FX</div><div class="prow" id="ai3"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai4',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Pika Labs</div><div class="ct">AI video gen</div><div class="prow" id="ai4"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai5',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">HeyGen</div><div class="ct">AI avatars</div><div class="prow" id="ai5"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai6',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Descript</div><div class="ct">AI edit + transcript</div><div class="prow" id="ai6"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai7',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">InVideo AI</div><div class="ct">Script to video</div><div class="prow" id="ai7"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai8',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">Luma Dream Machine</div><div class="ct">AI video gen</div><div class="prow" id="ai8"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai9',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">ElevenLabs</div><div class="ct">AI voiceover</div><div class="prow" id="ai9"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-      <label class="chip" onclick="ta(this,'ai10',event)"><input type="checkbox"><div class="check-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cn">CapCut AI</div><div class="ct">AI features</div><div class="prow" id="ai10"><select class="psel" onclick="event.stopPropagation()"><option>Basic</option><option>Intermediate</option><option>Advanced</option></select></div></label>
-    </div>
-    <div class="field" style="margin-top:14px"><label>Other AI tools you use</label><input type="text" id="aiOther" placeholder="e.g. Kaiber, Midjourney for thumbnails, Stable Diffusion..."></div>
-  </div>
-
-  <!-- Final Questions -->
-  <div class="card">
-    <div class="sec-label">Final questions</div>
-    <div class="field"><label>Tell us about a video you're most proud of</label><textarea id="proud" placeholder="What did you make? What made it stand out?" style="min-height:110px"></textarea></div>
-    <div class="field"><label>How did you hear about this opening?</label><select id="source"><option value="">Select</option><option>LinkedIn</option><option>Instagram</option><option>WhatsApp</option><option>Internshala</option><option>Naukri</option><option>Referral</option><option>Other</option></select></div>
-  </div>
-
-  <!-- Submit -->
-  <button class="submit-btn" id="submitBtn" onclick="doSubmit()">
-    <span class="spinner" id="spinner"></span>
-    <span id="btnLabel">Submit application →</span>
-  </button>
-  <div class="error-banner" id="errBanner">
-    Something went wrong. Please try again or email us at gulshan@thecurestone.com
-  </div>
-  <p class="footer-note" id="footerNote">Cure Stone LLP · Plot No: 164 P &amp; 165 P, Sector 52, Near Plot 3, Rd No D-13 A, Ardee City, Gurugram, Haryana 122003</p>
-
-  <!-- Success -->
-  <div class="success-card" id="doneCard">
-    <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-    <h3>Application received!</h3>
-    <p>Thank you for applying to Cure Stone. We'll review your profile and get back to you within 3–5 business days.</p>
-  </div>
-
 </div>
 
-<script>
-  // ── chip helpers ──────────────────────────────────────────────
-  function tc(el, event) {
-    event.preventDefault();
-    el.classList.toggle('on');
-    var cb = el.querySelector('input[type=checkbox]');
-    if (cb) cb.checked = el.classList.contains('on');
-  }
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="stag">Who we are</div>
+        <h2 class="stitle">Healthcare content that connects with millions</h2>
+        <p class="ssub">
+          Cure Stone is Gurugram's leading destination for advanced kidney stone laser treatment.
+          We combine cutting-edge medical technology with compassionate care — helping patients get
+          back to their lives faster, with minimally invasive and maximum precision.
+        </p>
+        <p class="ssub" style="margin-top:14px">
+          Beyond the clinic, we believe an informed patient is an empowered patient. Through our
+          YouTube channel and social media, we educate millions on kidney health, stone prevention,
+          and what to expect from modern laser treatment.
+        </p>
+        <div class="pills">
+          <div class="pill">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Healthcare Media
+          </div>
+          <div class="pill">
+            <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            Video Production
+          </div>
+          <div class="pill">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Gurugram, India
+          </div>
+        </div>
+      </div>
+      <div class="metrics-col">
+        <div class="metric">
+          <div class="mico bl"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          <div><div class="mnum">730K+</div><div class="mlbl">YouTube Subscribers</div></div>
+        </div>
+        <div class="metric">
+          <div class="mico gr"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <div><div class="mnum">100M+</div><div class="mlbl">Total Views</div></div>
+        </div>
+        <div class="metric">
+          <div class="mico pu"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div><div class="mnum">200+</div><div class="mlbl">Videos Published</div></div>
+        </div>
+        <div class="metric">
+          <div class="mico or"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><div class="mnum">5+ yrs</div><div class="mlbl">In healthcare content</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  function ta(el, pid, event) {
-    event.preventDefault();
-    el.classList.toggle('on');
-    var cb = el.querySelector('input[type=checkbox]');
-    if (cb) cb.checked = el.classList.contains('on');
-    var p = document.getElementById(pid);
-    if (p) p.classList.toggle('vis', el.classList.contains('on'));
-  }
+<!-- DOCTOR -->
+<section id="doctor">
+  <div class="wrap">
+    <div style="text-align:center">
+      <div class="stag">Meet our founder</div>
+      <h2 class="stitle">Dr. Deepanshu Gupta</h2>
+    </div>
+    <div class="doc-card">
+      <div class="doc-photo-col">
+        <div class="doc-avatar">
+          <!--
+            Replace the SVG below with an actual photo:
+            <img src="dr-deepanshu.jpg" alt="Dr. Deepanshu Gupta">
+          -->
+          <img src="doctor.png" alt="Dr. Deepanshu Gupta">
+        </div>
+        <div class="doc-name-inline">
+          <div class="dname">Dr. Deepanshu Gupta</div>
+          <div class="dtitle">Founder &amp; Medical Director, Cure Stone</div>
+        </div>
+      </div>
+      <div>
+        <div class="doc-name-side">
+          <div class="dname">Dr. Deepanshu Gupta</div>
+          <div class="dtitle">Founder &amp; Medical Director, Cure Stone</div>
+        </div>
+        <p class="dbio">
+          Dr. Deepanshu Gupta is a leading Urologist, healthcare educator, and founder of Cure Stone
+          in Gurugram. With extensive experience in kidney stone treatment and minimally invasive
+          urological procedures, he is dedicated to improving patient care and making reliable health
+          information accessible to everyone.
+        </p>
+        <p class="dbio" style="margin-top:12px">
+          Through Cure Stone and his digital platforms, Dr. Deepanshu Gupta simplifies complex medical
+          topics into easy-to-understand content, helping thousands of people make informed healthcare
+          decisions. His mission is to combine medical excellence, patient education, and innovation
+          to create a lasting impact on people's lives.
+        </p>
+        <p class="dbio" style="margin-top:12px">
+          As a Video Editor at Cure Stone, you will work directly with Dr. Deepanshu Gupta to create
+          engaging content that educates, informs, and helps patients across India.
+        </p>
+        <div class="dtags">
+          <span class="dtag">Urology</span>
+          <span class="dtag">Kidney Stone Treatment</span>
+          <span class="dtag">Laser Surgery</span>
+          <span class="dtag">Minimally Invasive Procedures</span>
+          <span class="dtag">Healthcare Education</span>
+          <span class="dtag">YouTube Creator</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  function handleResume(inp) {
-    if (inp.files && inp.files[0]) {
-      document.getElementById('rfname').textContent = inp.files[0].name + ' uploaded';
-      document.getElementById('rok').style.display = 'flex';
-    }
-  }
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="wrap">
+    <div class="vid-intro">
+      <div class="stag">Our work</div>
+      <h2 class="stitle">See the content you'll be editing</h2>
+      <p class="ssub">
+        These are examples of the kind of videos our team produces. Your role is to take
+        raw footage and turn it into content that educates, engages, and retains viewers.
+      </p>
+    </div>
+    <!--
+      IMPORTANT: Replace VIDEO_ID_1, VIDEO_ID_2, VIDEO_ID_3 with real YouTube video IDs.
+      Example: if the URL is https://www.youtube.com/watch?v=dQw4w9WgXcQ, the ID is dQw4w9WgXcQ
+    -->
+    <div class="vid-grid">
+      <div class="vid-wrap">
+        <iframe src="https://www.youtube.com/embed/Dat6ravpais"
+          title="Cure Stone — Video 1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <div class="vid-wrap">
+        <iframe src="https://www.youtube.com/embed/58xpnqdCPzU"
+          title="Cure Stone — Video 2"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <div class="vid-wrap">
+        <iframe src="https://www.youtube.com/embed/h9Su8zxoivs"
+          title="Cure Stone — Video 3"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+    <!-- Shorts -->
+    <div class="shorts-label">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#FF0000;flex-shrink:0;"><path d="M17.77 10.32l-1.2-.5L18 9.06a3.74 3.74 0 0 0-4.68-5.81L6 7.5v2.06l1.2.5L6 10.94a3.74 3.74 0 0 0 4.68 5.81L18 12.5v-2.06l-1.2-.5L18 9.06zM10 15.31a1.74 1.74 0 0 1-2.18-2.7L10 11.18v4.13zm4-6.62L11.82 9.5a1.74 1.74 0 0 1 2.18 2.7L12 13.62V9.5z"/></svg>
+      YouTube Shorts
+    </div>
+    <div class="shorts-grid">
+      <div class="short-wrap">
+        <iframe src="https://www.youtube.com/embed/SV48q2IUGmo"
+          title="Cure Stone — Short 1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <div class="short-wrap">
+        <iframe src="https://www.youtube.com/embed/JXyuQg3sHOw"
+          title="Cure Stone — Short 2"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <div class="short-wrap">
+        <iframe src="https://www.youtube.com/embed/to6PbLLCD64"
+          title="Cure Stone — Short 3"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
 
-  function chipsText(id) {
-    var nodes = document.querySelectorAll('#' + id + ' .chip.on .cn');
-    return nodes.length ? Array.from(nodes).map(function(n){ return n.textContent; }).join(', ') : 'None';
-  }
+    <div style="text-align:center; margin-top:40px;">
+      <a href="https://www.youtube.com/@cure_stone" target="_blank" class="watch-more-btn">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#fff;flex-shrink:0;"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+        Watch More Videos
+      </a>
+    </div>
+  </div>
+</section>
 
-  function chipsWithProf(id) {
-    var chips = document.querySelectorAll('#' + id + ' .chip.on');
-    if (!chips.length) return 'None';
-    return Array.from(chips).map(function(c) {
-      var name = c.querySelector('.cn').textContent;
-      var sel  = c.querySelector('.psel');
-      return sel ? name + ' (' + sel.value + ')' : name;
-    }).join(', ');
-  }
+<!-- ROLE -->
+<section id="role">
+  <div class="wrap">
+    <div class="stag">The position</div>
+    <h2 class="stitle">Video Editor</h2>
+    <p class="ssub" style="margin-bottom:36px">Full-time · On-site · Gurugram, Haryana</p>
 
-  // ── submit ────────────────────────────────────────────────────
-  async function doSubmit() {
-    var n  = document.getElementById('name').value.trim();
-    var ph = document.getElementById('phone').value.trim();
-    var em = document.getElementById('email').value.trim();
-    var cs = document.getElementById('cur_sal').value;
-    var es = document.getElementById('exp_sal').value;
-    var ex = document.getElementById('exp').value;
+    <div class="role-header">
+      <div class="ricon">
+        <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </div>
+      <div class="rtitle-wrap">
+        <div class="rtitle">Video Editor</div>
+        <div class="rmeta">
+          <span class="rchip gr">Now Hiring</span>
+          <span class="rchip">Full-time</span>
+          <span class="rchip">On-site</span>
+          <span class="rchip">Gurugram, Haryana</span>
+        </div>
+      </div>
+      <!-- Update the salary range below as needed -->
+      <div class="rsalary">
+        <div class="rsalary-lbl">Monthly salary</div>
+        <div class="rsalary-val">₹20,000 – ₹45,000</div>
+      </div>
+    </div>
 
-    if (!n || !ph || !em || cs === '' || es === '' || !ex) {
-      alert('Please fill in all required fields marked with *.');
-      return;
-    }
+    <div class="role-grid">
 
-    var btn     = document.getElementById('submitBtn');
-    var spinner = document.getElementById('spinner');
-    var label   = document.getElementById('btnLabel');
-    btn.disabled = true;
-    spinner.style.display = 'block';
-    label.textContent = 'Submitting…';
-    document.getElementById('errBanner').style.display = 'none';
+      <!-- Responsibilities -->
+      <div class="rcard">
+        <div class="rcard-head">
+          <div class="rcico bl"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          Responsibilities
+        </div>
+        <ul class="cklist">
+          <li><span class="cbul bl"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Edit raw footage into polished YouTube videos — both short-form and long-form</li>
+          <li><span class="cbul bl"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Create engaging Instagram Reels and YouTube Shorts</li>
+          <li><span class="cbul bl"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Add captions, lower-thirds, motion graphics, and smooth transitions</li>
+          <li><span class="cbul bl"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Colour grade footage and mix audio to a professional standard</li>
+          <li><span class="cbul bl"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Design eye-catching YouTube thumbnails</li>
+          <li><span class="cbul bl"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Collaborate directly with Dr. Deepanshu Gupta on storytelling and pacing</li>
+          <li><span class="cbul bl"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Repurpose long videos into clips, shorts, and social snippets</li>
+          <li><span class="cbul bl"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Maintain a consistent visual brand across YouTube, Instagram, and other platforms</li>
+        </ul>
+      </div>
 
-    var fd = new FormData();
+      <!-- Requirements -->
+      <div class="rcard">
+        <div class="rcard-head">
+          <div class="rcico gr"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          Requirements
+        </div>
+        <ul class="cklist">
+          <li><span class="cbul gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Proficient in Premiere Pro or After Effects (or both)</li>
+          <li><span class="cbul gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Strong portfolio of edited videos — Reels, YouTube, or branded content</li>
+          <li><span class="cbul gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Good sense of pacing, storytelling, and visual rhythm</li>
+          <li><span class="cbul gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Ability to handle medical/educational content accurately</li>
+          <li><span class="cbul gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Self-organised: can manage multiple videos and deadlines simultaneously</li>
+          <li><span class="cbul gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Based in or willing to relocate to Gurugram</li>
+          <li><span class="cbul gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Minimum 1 year editing experience (strong fresher portfolios welcome)</li>
+        </ul>
+      </div>
 
-    // ── Web3Forms config ──────────────────────────────────────
-    // Replace the value below with your key from https://web3forms.com
-    fd.append('access_key', '6af9b002-8e1a-4476-8f36-302a4acb7bd6');
-    fd.append('subject',    'Video Editor Application — ' + n);
-    fd.append('from_name',  'CureStone Careers Form');
-    // ─────────────────────────────────────────────────────────
+      <!-- Bonus skills -->
+      <div class="rcard">
+        <div class="rcard-head">
+          <div class="rcico or"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          Bonus skills (nice to have)
+        </div>
+        <ul class="cklist">
+          <li><span class="cbul or"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Experience with AI tools — Google Flow, CapCut AI, Runway, HeyGen, ElevenLabs, Kling AI</li>
+          <li><span class="cbul or"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Motion graphics or animation in After Effects</li>
+          <li><span class="cbul or"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Thumbnail design in Photoshop or Canva</li>
+          <li><span class="cbul or"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Understanding of YouTube SEO and retention optimisation</li>
+          <li><span class="cbul or"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Prior experience with health, wellness, or educational content</li>
+          <li><span class="cbul or"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Basic photography or on-set videography knowledge</li>
+        </ul>
+      </div>
 
-    // personal
-    fd.append('01 Full Name',   n);
-    fd.append('02 Phone',       ph);
-    fd.append('03 Email',       em);
-    fd.append('04 City',        document.getElementById('city').value.trim() || '—');
+      <!-- A typical week -->
+      <div class="rcard">
+        <div class="rcard-head">
+          <div class="rcico pu"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          A typical week at Cure Stone
+        </div>
+        <div class="week-list">
+          <div class="week-item">
+            <div class="week-tag">Plan</div>
+            <div class="week-desc">Start every week aligned with Dr. Deepanshu Gupta on what goes live and when</div>
+          </div>
+          <div class="week-item">
+            <div class="week-tag">Create</div>
+            <div class="week-desc">Spend the bulk of your week editing long-form videos, Reels, and Shorts</div>
+          </div>
+          <div class="week-item">
+            <div class="week-tag">Refine</div>
+            <div class="week-desc">Polish every detail — colour, audio, captions, thumbnails — before it goes public</div>
+          </div>
+          <div class="week-item">
+            <div class="week-tag">Innovate</div>
+            <div class="week-desc">Constantly explore AI tools that make the content faster, smarter, and more impactful</div>
+          </div>
+        </div>
+      </div>
 
-    // compensation
-    fd.append('05 Current Salary (Rs/mo)',  cs);
-    fd.append('06 Expected Salary (Rs/mo)', es);
-    fd.append('07 Notice Period',           document.getElementById('notice').value || '—');
-    fd.append('08 Work Mode',               'On-site (Gurugram)');
+    </div>
+  </div>
+</section>
 
-    // resume
-    var rfile = document.getElementById('rfile');
-    if (rfile.files && rfile.files[0]) {
-      fd.append('09 Resume File', rfile.files[0], rfile.files[0].name);
-    }
-    var rlink = document.getElementById('rlink').value.trim();
-    if (rlink) fd.append('10 Resume Link', rlink);
+<!-- PERKS -->
+<section id="perks">
+  <div class="wrap">
+    <div class="perks-intro">
+      <div class="stag">Why join us</div>
+      <h2 class="stitle">A role worth your talent</h2>
+      <p class="ssub" style="margin:0 auto">We're a small, fast-moving team with big goals. Real ownership, real creative input, and a direct line to an audience of millions.</p>
+    </div>
+    <div class="perks-grid">
+      <div class="pcard">
+        <div class="pico" style="background:#eff6ff;"><svg viewBox="0 0 24 24" style="stroke:#2563eb;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="pname">Creative ownership</div>
+        <div class="pdesc">Your edits shape how millions of people consume health information — real impact, not just output.</div>
+      </div>
+      <div class="pcard">
+        <div class="pico" style="background:#f0fdf4;"><svg viewBox="0 0 24 24" style="stroke:#16a34a;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="pname">Competitive salary</div>
+        <div class="pdesc">₹20,000–₹45,000/month based on experience, with performance reviews and growth potential.</div>
+      </div>
+      <div class="pcard">
+        <div class="pico" style="background:#f5f3ff;"><svg viewBox="0 0 24 24" style="stroke:#7c3aed;"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
+        <div class="pname">Grow with the channel</div>
+        <div class="pdesc">Be part of an actively scaling brand. As we grow, so does your role, your skills, and your earnings.</div>
+      </div>
+      <div class="pcard">
+        <div class="pico" style="background:#fff7ed;"><svg viewBox="0 0 24 24" style="stroke:#ea580c;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="pname">Small, focused team</div>
+        <div class="pdesc">Work directly with Dr. Deepanshu Gupta, skip the bureaucracy, and move fast on ideas that matter.</div>
+      </div>
+      <div class="pcard">
+        <div class="pico" style="background:#fef2f2;"><svg viewBox="0 0 24 24" style="stroke:#dc2626;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="pname">Mission-driven work</div>
+        <div class="pdesc">Your content contributes to a healthier, more informed India. Something to be genuinely proud of.</div>
+      </div>
+      <div class="pcard">
+        <div class="pico" style="background:#ecfdf5;"><svg viewBox="0 0 24 24" style="stroke:#059669;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="pname">AI-forward culture</div>
+        <div class="pdesc">We actively embrace AI editing tools. You'll experiment with the latest tech and expand your skill set.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // portfolio
-    fd.append('11 Portfolio Link',       document.getElementById('port').value.trim()    || '—');
-    fd.append('12 Instagram / YouTube',  document.getElementById('social').value.trim()  || '—');
-    fd.append('13 Work Sample Links',    document.getElementById('samples').value.trim() || '—');
+<!-- CTA -->
+<section id="apply">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="ctag">Ready to apply?</div>
+      <h2>Let's make something<br>great together.</h2>
+      <p class="cp">The application takes about 5 minutes. Show us your best work and we'll be in touch within 3–5 business days.</p>
+      <a href="apply.html" class="cta-btn">
+        Start your application
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <div class="cnote">Questions? <a href="mailto:gulshan@thecurestone.com">gulshan@thecurestone.com</a></div>
+    </div>
+  </div>
+</section>
 
-    // experience
-    fd.append('14 Years of Experience',  ex);
-    fd.append('15 Employment Type',      document.getElementById('emptype').value || '—');
-    fd.append('16 Content Types',        chipsText('content-chips'));
+<!-- FOOTER -->
+<footer>
+  <p>
+    &copy; 2025 Cure Stone LLP &nbsp;·&nbsp;
+    Plot No. 164P &amp; 165P, Sector 52, Ardee City, Gurugram, Haryana 122003<br>
+    <a href="mailto:gulshan@thecurestone.com">gulshan@thecurestone.com</a>
+  </p>
+</footer>
 
-    // software
-    fd.append('17 Video Editing Tools',  chipsWithProf('ve-chips'));
-    fd.append('18 Other Video Tools',    document.getElementById('veOther').value.trim() || '—');
-    fd.append('19 Photo Editing Tools',  chipsWithProf('pe-chips'));
-    fd.append('20 Other Photo Tools',    document.getElementById('peOther').value.trim() || '—');
-    fd.append('21 AI Video Tools',       chipsWithProf('ai-chips'));
-    fd.append('22 Other AI Tools',       document.getElementById('aiOther').value.trim() || '—');
-
-    // final
-    fd.append('23 Proud Video',          document.getElementById('proud').value.trim()  || '—');
-    fd.append('24 How They Heard',       document.getElementById('source').value || '—');
-
-    try {
-      var res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
-      var data = await res.json();
-
-      if (data.success) {
-        btn.style.display = 'none';
-        document.getElementById('footerNote').style.display = 'none';
-        document.getElementById('doneCard').style.display = 'block';
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-      } else {
-        throw new Error(data.message || JSON.stringify(data));
-      }
-    } catch (err) {
-      var banner = document.getElementById('errBanner');
-      banner.textContent = 'Error: ' + (err.message || 'Unknown error. Please try again or email gulshan@thecurestone.com');
-      banner.style.display = 'block';
-      btn.disabled = false;
-      spinner.style.display = 'none';
-      label.textContent = 'Submit application →';
-      console.error('Submission error:', err);
-    }
-  }
-</script>
 </body>
 </html>
