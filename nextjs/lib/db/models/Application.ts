@@ -65,10 +65,12 @@ const ApplicationSchema = new Schema(
       video: { type: [ToolUsageSchema], default: [] },
       photo: { type: [ToolUsageSchema], default: [] },
       ai: { type: [ToolUsageSchema], default: [] },
+      seo: { type: [ToolUsageSchema], default: [] },
     },
     otherVideoTools: String,
     otherPhotoTools: String,
     otherAiTools: String,
+    otherSeoTools: String,
 
     proudVideo: String,
     howHeard: String,

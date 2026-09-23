@@ -1,5 +1,17 @@
 export type ToolOption = { id: string; name: string; tag: string };
 
+// Which skill-specific sections a role's apply form shows — set per role
+// from the admin job form, read by ApplyForm to render only what's
+// relevant (an SEO intern shouldn't see "video editing software").
+export type SkillSection = "video" | "photo" | "ai" | "seo";
+
+export const skillSectionOptions: { id: SkillSection; label: string }[] = [
+  { id: "video", label: "Video editing tools" },
+  { id: "photo", label: "Photo / camera editing tools" },
+  { id: "ai", label: "AI video generation tools" },
+  { id: "seo", label: "SEO tools" },
+];
+
 export const contentTypes: ToolOption[] = [
   { id: "reels", name: "Reels / Shorts", tag: "Social media" },
   { id: "youtube", name: "YouTube long-form", tag: "10+ min videos" },
@@ -38,6 +50,17 @@ export const aiTools: ToolOption[] = [
   { id: "luma", name: "Luma Dream Machine", tag: "AI video gen" },
   { id: "elevenlabs", name: "ElevenLabs", tag: "AI voiceover" },
   { id: "capcutai", name: "CapCut AI", tag: "AI features" },
+];
+
+export const seoTools: ToolOption[] = [
+  { id: "gsc", name: "Google Search Console", tag: "Search performance" },
+  { id: "ga4", name: "Google Analytics (GA4)", tag: "Traffic & behaviour" },
+  { id: "ahrefs", name: "Ahrefs", tag: "Backlinks & keywords" },
+  { id: "semrush", name: "SEMrush", tag: "Keyword research" },
+  { id: "ubersuggest", name: "Ubersuggest", tag: "Keyword research" },
+  { id: "screamingfrog", name: "Screaming Frog", tag: "Technical SEO" },
+  { id: "gkp", name: "Google Keyword Planner", tag: "Keyword research" },
+  { id: "surfer", name: "Surfer SEO", tag: "Content optimisation" },
 ];
 
 export const proficiency4 = ["Basic", "Intermediate", "Advanced", "Expert"];

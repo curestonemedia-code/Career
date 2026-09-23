@@ -48,6 +48,7 @@ const seedRoles = [
       "Prior experience with health, wellness, or educational content",
       "Basic photography or on-set videography knowledge",
     ],
+    skillSections: ["video", "photo", "ai"],
     status: "published",
   },
   {
@@ -85,6 +86,7 @@ const seedRoles = [
       "Interest in healthcare or YouTube SEO specifically",
       "Basic understanding of HTML and how search engines crawl a page",
     ],
+    skillSections: ["seo"],
     status: "published",
   },
   {
@@ -126,6 +128,7 @@ const seedRoles = [
       title: "What you'll shoot on",
       body: "A Sony a7 IV paired with the FE 24-70mm F2.8 GM II, a professional hybrid setup with 33MP detail, fast autofocus, and a lightweight body built for full shooting days.",
     },
+    skillSections: ["photo"],
     status: "published",
   },
 ];

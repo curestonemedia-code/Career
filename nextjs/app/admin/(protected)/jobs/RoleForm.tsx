@@ -4,6 +4,7 @@ import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { useActionState, useState } from "react";
 import { saveRole } from "./actions";
 import { roleIconRegistry, roleIconKeys } from "@/lib/role-icons";
+import { type SkillSection, skillSectionOptions } from "@/lib/apply-form-data";
 import type { Role } from "@/lib/roles";
 
 const inputClasses =
@@ -261,6 +262,31 @@ export function RoleForm({ role }: { role?: Role }) {
             <label className={labelClasses}>Body</label>
             <input name="equipmentBody" defaultValue={role?.equipment?.body} className={inputClasses} />
           </div>
+        </div>
+      </div>
+
+      <div className={cardClasses}>
+        <div className={sectionLabelClasses}>Apply form skills</div>
+        <p className="mb-3.5 text-[13px] text-ink-2">
+          Choose which skill sections show on the public apply form for this role. Leave all unchecked for a
+          role with no tool-specific questions.
+        </p>
+        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          {skillSectionOptions.map((option) => (
+            <label
+              key={option.id}
+              className="flex cursor-pointer items-center gap-2.5 rounded-[7px] border border-line-2 px-3.25 py-2.5 text-sm text-ink transition-colors hover:border-blue-mid"
+            >
+              <input
+                type="checkbox"
+                name="skillSections"
+                value={option.id}
+                defaultChecked={role?.skillSections?.includes(option.id as SkillSection) ?? false}
+                className="h-4 w-4 accent-blue"
+              />
+              {option.label}
+            </label>
+          ))}
         </div>
       </div>
 

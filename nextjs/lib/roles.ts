@@ -2,6 +2,7 @@ import "server-only";
 import { connectDB } from "@/lib/db/connect";
 import { RoleModel } from "@/lib/db/models/Role";
 import { DEFAULT_ROLE_ICON_KEY, type RoleIconKey } from "@/lib/role-icons";
+import type { SkillSection } from "@/lib/apply-form-data";
 
 // Re-exported for convenience on the server; Client Components must import
 // this directly from "@/lib/format-salary" instead (see that file for why).
@@ -33,6 +34,7 @@ export type Role = {
   bonusSkills?: string[];
   equipment?: { title: string; body: string };
   status: RoleStatus;
+  skillSections: SkillSection[];
 };
 
 // Mongoose's lean() strips the Document wrapper but leaves BSON types
@@ -64,6 +66,7 @@ function toPlainRole(doc: any): Role {
     bonusSkills: doc.bonusSkills ?? undefined,
     equipment: doc.equipment ?? undefined,
     status: doc.status,
+    skillSections: doc.skillSections ?? [],
   };
 }
 

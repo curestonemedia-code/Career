@@ -8,6 +8,9 @@ import { connectDB } from "@/lib/db/connect";
 import { RoleModel } from "@/lib/db/models/Role";
 import { roleIconKeys } from "@/lib/role-icons";
 import { slugify } from "@/lib/slugify";
+import { type SkillSection, skillSectionOptions } from "@/lib/apply-form-data";
+
+const skillSectionIds = skillSectionOptions.map((o) => o.id) as [SkillSection, ...SkillSection[]];
 
 const RoleSchema = z
   .object({
@@ -31,6 +34,7 @@ const RoleSchema = z
     bonusSkills: z.array(z.string().trim().min(1)).optional(),
     equipmentTitle: z.string().trim().optional(),
     equipmentBody: z.string().trim().optional(),
+    skillSections: z.array(z.enum(skillSectionIds)).optional(),
   })
   .refine((data) => data.salaryMax >= data.salaryMin, {
     message: "Maximum salary must be greater than or equal to minimum salary",
@@ -73,6 +77,7 @@ export async function saveRole(_prevState: RoleFormState, formData: FormData): P
     bonusSkills: nonEmptyList(formData, "bonusSkills"),
     equipmentTitle: formData.get("equipmentTitle") || undefined,
     equipmentBody: formData.get("equipmentBody") || undefined,
+    skillSections: formData.getAll("skillSections"),
   });
 
   if (!parsed.success) {
@@ -108,6 +113,7 @@ export async function saveRole(_prevState: RoleFormState, formData: FormData): P
       data.equipmentTitle && data.equipmentBody
         ? { title: data.equipmentTitle, body: data.equipmentBody }
         : undefined,
+    skillSections: data.skillSections ?? [],
   };
 
   try {

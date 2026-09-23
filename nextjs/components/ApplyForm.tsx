@@ -19,6 +19,7 @@ import {
   photoTools,
   proficiency3,
   proficiency4,
+  seoTools,
   sourceOptions,
   videoTools,
 } from "@/lib/apply-form-data";
@@ -182,6 +183,7 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
   const [videoToolProficiency, setVideoToolProficiency] = useState<Record<string, string>>({});
   const [photoToolProficiency, setPhotoToolProficiency] = useState<Record<string, string>>({});
   const [aiToolProficiency, setAiToolProficiency] = useState<Record<string, string>>({});
+  const [seoToolProficiency, setSeoToolProficiency] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -218,6 +220,11 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
   }
 
   const selectedRole = roles.find((r) => r.slug === selectedRoleSlug);
+  const skillSections = selectedRole?.skillSections ?? [];
+  const showVideo = skillSections.includes("video");
+  const showPhoto = skillSections.includes("photo");
+  const showAi = skillSections.includes("ai");
+  const showSeo = skillSections.includes("seo");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -283,6 +290,8 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
     payload.append("photo_other", String(fd.get("photo_other") ?? "").trim());
     payload.append("ai_tools", JSON.stringify(toolsForSubmit(aiTools, aiToolProficiency)));
     payload.append("ai_other", String(fd.get("ai_other") ?? "").trim());
+    payload.append("seo_tools", JSON.stringify(toolsForSubmit(seoTools, seoToolProficiency)));
+    payload.append("seo_other", String(fd.get("seo_other") ?? "").trim());
 
     payload.append("proud", String(fd.get("proud") ?? "").trim());
     payload.append("source", String(fd.get("source") ?? ""));
@@ -482,7 +491,7 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
           <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             <div>
               <label className={labelClasses}>
-                Years of editing experience <span className="text-[#ef4444]">*</span>
+                Years of relevant experience <span className="text-[#ef4444]">*</span>
               </label>
               <select name="experience" defaultValue="" className={inputClasses}>
                 <option value="">Select</option>
@@ -501,118 +510,155 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
               </select>
             </div>
           </div>
-          <div className="mt-3.5">
-            <label className={labelClasses}>Content types edited (select all that apply)</label>
-            <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {contentTypes.map((option) => (
-                <SimpleChip
-                  key={option.id}
-                  option={option}
-                  selected={selectedContentTypes.has(option.id)}
-                  onToggle={() => toggleContentType(option.id)}
-                />
-              ))}
+          {showVideo && (
+            <div className="mt-3.5">
+              <label className={labelClasses}>Content types edited (select all that apply)</label>
+              <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {contentTypes.map((option) => (
+                  <SimpleChip
+                    key={option.id}
+                    option={option}
+                    selected={selectedContentTypes.has(option.id)}
+                    onToggle={() => toggleContentType(option.id)}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Video editing software */}
-        <div className={cardClasses}>
-          <div className={sectionLabelClasses}>Video editing software</div>
-          <p className="mb-3.5 text-[13px] text-ink-2">Select tools you use and choose your proficiency level.</p>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {videoTools.map((option) => (
-              <ProficiencyChip
-                key={option.id}
-                option={option}
-                levels={proficiency4}
-                proficiency={videoToolProficiency[option.id] ?? null}
-                onToggle={() =>
-                  toggleTool(option.id, proficiency4[0], videoToolProficiency, setVideoToolProficiency)
-                }
-                onProficiencyChange={(level) =>
-                  setVideoToolProficiency((prev) => ({ ...prev, [option.id]: level }))
-                }
+        {showVideo && (
+          <div className={cardClasses}>
+            <div className={sectionLabelClasses}>Video editing software</div>
+            <p className="mb-3.5 text-[13px] text-ink-2">Select tools you use and choose your proficiency level.</p>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {videoTools.map((option) => (
+                <ProficiencyChip
+                  key={option.id}
+                  option={option}
+                  levels={proficiency4}
+                  proficiency={videoToolProficiency[option.id] ?? null}
+                  onToggle={() =>
+                    toggleTool(option.id, proficiency4[0], videoToolProficiency, setVideoToolProficiency)
+                  }
+                  onProficiencyChange={(level) =>
+                    setVideoToolProficiency((prev) => ({ ...prev, [option.id]: level }))
+                  }
+                />
+              ))}
+            </div>
+            <div className="mt-3.5">
+              <label className={labelClasses}>Other video editing tools</label>
+              <input
+                name="video_other"
+                type="text"
+                placeholder="e.g. Kdenlive, Resolve Fusion, Premiere Rush..."
+                className={inputClasses}
               />
-            ))}
+            </div>
           </div>
-          <div className="mt-3.5">
-            <label className={labelClasses}>Other video editing tools</label>
-            <input
-              name="video_other"
-              type="text"
-              placeholder="e.g. Kdenlive, Resolve Fusion, Premiere Rush..."
-              className={inputClasses}
-            />
-          </div>
-        </div>
+        )}
 
         {/* Photo editing software */}
-        <div className={cardClasses}>
-          <div className={sectionLabelClasses}>Photo editing software</div>
-          <p className="mb-3.5 text-[13px] text-ink-2">Select tools you use and choose your proficiency level.</p>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {photoTools.map((option) => (
-              <ProficiencyChip
-                key={option.id}
-                option={option}
-                levels={proficiency4}
-                proficiency={photoToolProficiency[option.id] ?? null}
-                onToggle={() =>
-                  toggleTool(option.id, proficiency4[0], photoToolProficiency, setPhotoToolProficiency)
-                }
-                onProficiencyChange={(level) =>
-                  setPhotoToolProficiency((prev) => ({ ...prev, [option.id]: level }))
-                }
+        {showPhoto && (
+          <div className={cardClasses}>
+            <div className={sectionLabelClasses}>Photo / camera editing software</div>
+            <p className="mb-3.5 text-[13px] text-ink-2">Select tools you use and choose your proficiency level.</p>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {photoTools.map((option) => (
+                <ProficiencyChip
+                  key={option.id}
+                  option={option}
+                  levels={proficiency4}
+                  proficiency={photoToolProficiency[option.id] ?? null}
+                  onToggle={() =>
+                    toggleTool(option.id, proficiency4[0], photoToolProficiency, setPhotoToolProficiency)
+                  }
+                  onProficiencyChange={(level) =>
+                    setPhotoToolProficiency((prev) => ({ ...prev, [option.id]: level }))
+                  }
+                />
+              ))}
+            </div>
+            <div className="mt-3.5">
+              <label className={labelClasses}>Other photo editing tools</label>
+              <input
+                name="photo_other"
+                type="text"
+                placeholder="e.g. Affinity Photo, Darkroom, Capture One..."
+                className={inputClasses}
               />
-            ))}
+            </div>
           </div>
-          <div className="mt-3.5">
-            <label className={labelClasses}>Other photo editing tools</label>
-            <input
-              name="photo_other"
-              type="text"
-              placeholder="e.g. Affinity Photo, Darkroom, Capture One..."
-              className={inputClasses}
-            />
-          </div>
-        </div>
+        )}
 
         {/* AI tools */}
-        <div className={cardClasses}>
-          <div className={sectionLabelClasses}>AI video generation tools</div>
-          <p className="mb-3.5 text-[13px] text-ink-2">Select all tools you have used and rate your proficiency.</p>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {aiTools.map((option) => (
-              <ProficiencyChip
-                key={option.id}
-                option={option}
-                levels={proficiency3}
-                proficiency={aiToolProficiency[option.id] ?? null}
-                onToggle={() => toggleTool(option.id, proficiency3[0], aiToolProficiency, setAiToolProficiency)}
-                onProficiencyChange={(level) => setAiToolProficiency((prev) => ({ ...prev, [option.id]: level }))}
+        {showAi && (
+          <div className={cardClasses}>
+            <div className={sectionLabelClasses}>AI video generation tools</div>
+            <p className="mb-3.5 text-[13px] text-ink-2">Select all tools you have used and rate your proficiency.</p>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {aiTools.map((option) => (
+                <ProficiencyChip
+                  key={option.id}
+                  option={option}
+                  levels={proficiency3}
+                  proficiency={aiToolProficiency[option.id] ?? null}
+                  onToggle={() => toggleTool(option.id, proficiency3[0], aiToolProficiency, setAiToolProficiency)}
+                  onProficiencyChange={(level) => setAiToolProficiency((prev) => ({ ...prev, [option.id]: level }))}
+                />
+              ))}
+            </div>
+            <div className="mt-3.5">
+              <label className={labelClasses}>Other AI tools you use</label>
+              <input
+                name="ai_other"
+                type="text"
+                placeholder="e.g. Kaiber, Midjourney for thumbnails, Stable Diffusion..."
+                className={inputClasses}
               />
-            ))}
+            </div>
           </div>
-          <div className="mt-3.5">
-            <label className={labelClasses}>Other AI tools you use</label>
-            <input
-              name="ai_other"
-              type="text"
-              placeholder="e.g. Kaiber, Midjourney for thumbnails, Stable Diffusion..."
-              className={inputClasses}
-            />
+        )}
+
+        {/* SEO tools */}
+        {showSeo && (
+          <div className={cardClasses}>
+            <div className={sectionLabelClasses}>SEO tools</div>
+            <p className="mb-3.5 text-[13px] text-ink-2">Select all tools you have used and rate your proficiency.</p>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {seoTools.map((option) => (
+                <ProficiencyChip
+                  key={option.id}
+                  option={option}
+                  levels={proficiency3}
+                  proficiency={seoToolProficiency[option.id] ?? null}
+                  onToggle={() => toggleTool(option.id, proficiency3[0], seoToolProficiency, setSeoToolProficiency)}
+                  onProficiencyChange={(level) => setSeoToolProficiency((prev) => ({ ...prev, [option.id]: level }))}
+                />
+              ))}
+            </div>
+            <div className="mt-3.5">
+              <label className={labelClasses}>Other SEO tools you use</label>
+              <input
+                name="seo_other"
+                type="text"
+                placeholder="e.g. Moz, Screaming Frog, Clearscope..."
+                className={inputClasses}
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Final questions */}
         <div className={cardClasses}>
           <div className={sectionLabelClasses}>Final questions</div>
           <div>
-            <label className={labelClasses}>Tell us about a video you&apos;re most proud of</label>
+            <label className={labelClasses}>Tell us about a project you&apos;re most proud of</label>
             <textarea
               name="proud"
-              placeholder="What did you make? What made it stand out?"
+              placeholder="What did you make or achieve? What made it stand out?"
               className={`${inputClasses} min-h-27.5 resize-y leading-relaxed`}
             />
           </div>

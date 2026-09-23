@@ -66,6 +66,14 @@ const RoleSchema = new Schema(
     },
     bonusSkills: { type: [String], default: undefined },
     equipment: { type: EquipmentSchema, default: undefined },
+    // Which skill-specific sections the public apply form shows for this
+    // role (e.g. a video editor sees video/photo/AI tool pickers, an SEO
+    // intern sees SEO tools instead) — see lib/apply-form-data.ts.
+    skillSections: {
+      type: [String],
+      enum: ["video", "photo", "ai", "seo"],
+      default: [],
+    },
     status: {
       type: String,
       enum: ["draft", "published", "closed"],

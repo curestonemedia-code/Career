@@ -48,6 +48,8 @@ export const ApplySchema = z.object({
   photo_other: z.string().trim().optional(),
   ai_tools: jsonArray(ToolUsage),
   ai_other: z.string().trim().optional(),
+  seo_tools: jsonArray(ToolUsage),
+  seo_other: z.string().trim().optional(),
 
   proud: z.string().trim().optional(),
   source: z.string().trim().optional(),

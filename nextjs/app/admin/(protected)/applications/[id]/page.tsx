@@ -138,6 +138,8 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
               <Field label="Other photo tools" value={app.otherPhotoTools} />
               <ToolList label="AI tools" tools={app.tools?.ai ?? []} />
               <Field label="Other AI tools" value={app.otherAiTools} />
+              <ToolList label="SEO tools" tools={app.tools?.seo ?? []} />
+              <Field label="Other SEO tools" value={app.otherSeoTools} />
             </div>
           </div>
 
