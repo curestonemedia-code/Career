@@ -1,11 +1,17 @@
 import "server-only";
-import { del, put } from "@vercel/blob";
+import { del, get, put } from "@vercel/blob";
 import { MAX_RESUME_SIZE_BYTES } from "@/lib/resume-constraints";
 
 /**
  * Resume storage via Vercel Blob. BLOB_READ_WRITE_TOKEN is auto-injected
  * when a Blob store is connected to the Vercel project (Storage tab ->
  * Create Database -> Blob); for local dev, copy that same token into .env.
+ *
+ * The store is private (resumes are personal data — not something anyone
+ * with the URL should be able to open), so every blob is written with
+ * access: "private" and read back server-side via readResumeFile(), never
+ * linked to directly. See app/admin/(protected)/applications/[id]/resume/route.ts
+ * for the authenticated route that streams it to the admin UI.
  *
  * Like the rest of this app's optional integrations, uploadResumeIfConfigured
  * checks for its own config and returns null (never throws for missing
@@ -48,7 +54,7 @@ export async function uploadResumeIfConfigured(
   const pathname = `resumes/${safeName}-${Date.now()}-${file.name}`;
 
   const blob = await put(pathname, file, {
-    access: "public",
+    access: "private",
     contentType: file.type || "application/octet-stream",
   });
 
@@ -64,4 +70,10 @@ export async function uploadResumeIfConfigured(
 export async function deleteResumeFile(blobUrl: string): Promise<void> {
   if (!isBlobConfigured()) return;
   await del(blobUrl);
+}
+
+/** Streams a private resume back for the authenticated admin route. Returns null if unavailable. */
+export async function readResumeFile(blobUrl: string) {
+  if (!isBlobConfigured()) return null;
+  return get(blobUrl, { access: "private" });
 }

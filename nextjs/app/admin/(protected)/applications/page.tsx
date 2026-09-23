@@ -1,3 +1,4 @@
+import { PaperclipIcon } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { connectDB } from "@/lib/db/connect";
 import { ApplicationModel } from "@/lib/db/models/Application";
@@ -118,6 +119,11 @@ export default async function AdminApplicationsPage(props: {
               </p>
             </div>
             <div className="flex items-center gap-3">
+              {app.resume?.source === "upload" && (
+                <span title="Resume attached" className="text-ink-3">
+                  <PaperclipIcon size={15} weight="bold" />
+                </span>
+              )}
               <span className="text-xs text-ink-3">
                 {app.createdAt ? new Date(app.createdAt).toLocaleDateString("en-IN") : ""}
               </span>

@@ -41,6 +41,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   if (!app) notFound();
 
   const resume = app.resume;
+  const resumeUrl = `/admin/applications/${id}/resume`;
 
   return (
     <div>
@@ -85,15 +86,28 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
           <div className="rounded-2xl border border-line bg-white p-6">
             <p className="mb-4 text-[11px] font-black tracking-widest text-ink-3 uppercase">Resume</p>
             {resume?.source === "upload" && resume.blobUrl ? (
-              <a
-                href={resume.blobUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-light px-4 py-2.5 text-sm font-bold text-blue"
-              >
-                <DownloadSimpleIcon size={16} weight="bold" />
-                {resume.fileName ?? "View resume"}
-              </a>
+              <div>
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-blue-light px-4 py-2.5 text-sm font-bold text-blue"
+                >
+                  <DownloadSimpleIcon size={16} weight="bold" />
+                  {resume.fileName ?? "View resume"}
+                </a>
+                {resume.mimeType === "application/pdf" ? (
+                  <iframe
+                    src={resumeUrl}
+                    title="Resume preview"
+                    className="mt-3 h-[70vh] w-full rounded-xl border border-line"
+                  />
+                ) : (
+                  <p className="mt-2 text-xs text-ink-3">
+                    Preview isn&apos;t available for this file type — use the link above to download it.
+                  </p>
+                )}
+              </div>
             ) : resume?.source === "link" && resume.pastedLink ? (
               <a
                 href={resume.pastedLink}
