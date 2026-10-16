@@ -77,16 +77,18 @@ export function jobPostingSchema(role: Role) {
         addressCountry: siteConfig.addressLines.country,
       },
     },
-    baseSalary: {
-      "@type": "MonetaryAmount",
-      currency: role.salary.currency,
-      value: {
-        "@type": "QuantitativeValue",
-        minValue: role.salary.min,
-        maxValue: role.salary.max,
-        unitText: role.salary.unit,
+    ...(role.salaryDisclosed && {
+      baseSalary: {
+        "@type": "MonetaryAmount",
+        currency: role.salary.currency,
+        value: {
+          "@type": "QuantitativeValue",
+          minValue: role.salary.min,
+          maxValue: role.salary.max,
+          unitText: role.salary.unit,
+        },
       },
-    },
+    }),
     directApply: true,
     applicantLocationRequirements: {
       "@type": "Country",
@@ -104,6 +106,21 @@ export function jobPostingListSchema(rolesList: Role[]) {
       "@type": "ListItem",
       position: index + 1,
       url: `${siteConfig.url}/careers/${role.slug}`,
+    })),
+  };
+}
+
+export function faqSchema(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
     })),
   };
 }

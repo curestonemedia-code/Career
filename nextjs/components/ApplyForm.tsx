@@ -43,50 +43,6 @@ function CheckDot({ on }: { on: boolean }) {
   );
 }
 
-function RoleRow({
-  icon,
-  title,
-  schedule,
-  salary,
-  selected,
-  onSelect,
-}: {
-  icon: string;
-  title: string;
-  schedule: string;
-  salary: string;
-  selected: boolean;
-  onSelect: () => void;
-}) {
-  const Icon = getRoleIcon(icon);
-  return (
-    <label
-      onClick={(e) => {
-        e.preventDefault();
-        onSelect();
-      }}
-      className={`relative flex cursor-pointer items-start gap-3 rounded-2xl border p-4 pr-9 transition-colors select-none ${
-        selected ? "border-blue bg-blue-light" : "border-line-2 bg-white hover:border-blue-mid"
-      }`}
-    >
-      <input type="radio" checked={selected} readOnly className="sr-only" />
-      <div
-        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${selected ? "bg-white" : "bg-blue-light"}`}
-      >
-        {/* getRoleIcon always returns a stable reference from the fixed icon registry, never a newly-created component. */}
-        {/* eslint-disable-next-line react-hooks/static-components */}
-        <Icon size={17} weight="regular" className="text-blue" />
-      </div>
-      <div className="min-w-0">
-        <div className="text-sm font-bold text-ink">{title}</div>
-        <div className="mt-0.5 text-xs text-ink-2">{schedule}</div>
-        <div className="mt-1 text-xs font-bold text-blue">{salary} / mo</div>
-      </div>
-      <CheckDot on={selected} />
-    </label>
-  );
-}
-
 function SimpleChip({
   option,
   selected,
@@ -173,11 +129,11 @@ const cardClasses = "mb-4 rounded-[14px] border border-line bg-white p-7";
 const sectionLabelClasses =
   "mb-4.5 border-b border-line pb-2 text-[11px] font-semibold tracking-[0.08em] text-ink-3 uppercase";
 
-export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRoleSlug?: string }) {
+export function ApplyForm({ role }: { role: Role }) {
   const formRef = useRef<HTMLFormElement>(null);
   const resumeInputRef = useRef<HTMLInputElement>(null);
+  const RoleIcon = getRoleIcon(role.icon);
 
-  const [selectedRoleSlug, setSelectedRoleSlug] = useState<string>(initialRoleSlug ?? "");
   const [resumeFileName, setResumeFileName] = useState<string | null>(null);
   const [selectedContentTypes, setSelectedContentTypes] = useState<Set<string>>(new Set());
   const [videoToolProficiency, setVideoToolProficiency] = useState<Record<string, string>>({});
@@ -219,12 +175,14 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
     return contentTypes.filter((c) => selectedContentTypes.has(c.id)).map((c) => c.name);
   }
 
-  const selectedRole = roles.find((r) => r.slug === selectedRoleSlug);
-  const skillSections = selectedRole?.skillSections ?? [];
+  const skillSections = role.skillSections;
   const showVideo = skillSections.includes("video");
   const showPhoto = skillSections.includes("photo");
   const showAi = skillSections.includes("ai");
   const showSeo = skillSections.includes("seo");
+  // Roles with no creative/technical skill sections (e.g. clinical hires)
+  // skip the portfolio question and "proud project" prompt — neither applies.
+  const showPortfolioWork = skillSections.length > 0;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -238,14 +196,13 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
     const curSal = String(fd.get("cur_sal") ?? "").trim();
     const expSal = String(fd.get("exp_sal") ?? "").trim();
     const experience = String(fd.get("experience") ?? "").trim();
-    const role = selectedRole;
 
     // Every field marked with * across the form, checked together so a
     // single missing field anywhere shows the same generic message below
     // rather than pointing at (or highlighting) any one field.
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const curSalValid = curSal !== "" && Number.isFinite(Number(curSal)) && Number(curSal) >= 0;
-    const expSalValid = expSal !== "" && Number.isFinite(Number(expSal)) && Number(expSal) >= 0;
+    const curSalValid = !role.salaryDisclosed || (curSal !== "" && Number.isFinite(Number(curSal)) && Number(curSal) >= 0);
+    const expSalValid = !role.salaryDisclosed || (expSal !== "" && Number.isFinite(Number(expSal)) && Number(expSal) >= 0);
     const phoneValid = phone.replace(/[^\d]/g, "").length >= 7;
 
     const resumeFile = resumeInputRef.current?.files?.[0];
@@ -254,7 +211,10 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
       return;
     }
 
-    if (!role || !name || !phone || !phoneValid || !email || !emailValid || !curSalValid || !expSalValid || !experience) {
+    const resumeLink = String(fd.get("resume_link") ?? "").trim();
+    const hasResume = Boolean(resumeFile) || resumeLink !== "";
+
+    if (!name || !phone || !phoneValid || !email || !emailValid || !curSalValid || !expSalValid || !experience || !hasResume) {
       setError(REQUIRED_FIELDS_MESSAGE);
       return;
     }
@@ -365,59 +325,63 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
           </div>
         </div>
 
-        {/* Compensation */}
-        <div className={cardClasses}>
-          <div className={sectionLabelClasses}>Compensation</div>
-          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-            <div>
-              <label className={labelClasses}>
-                Current salary (monthly) <span className="text-[#ef4444]">*</span>
-              </label>
-              <div className="grid grid-cols-[76px_1fr] items-center gap-2">
-                <div className="rounded-[7px] border border-line-2 bg-surface py-2.5 text-center text-xs font-medium text-ink-2">
-                  ₹ / mo
+        {/* Compensation — skipped entirely for roles discussed personally */}
+        {role.salaryDisclosed && (
+          <div className={cardClasses}>
+            <div className={sectionLabelClasses}>Compensation</div>
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+              <div>
+                <label className={labelClasses}>
+                  Current salary (monthly) <span className="text-[#ef4444]">*</span>
+                </label>
+                <div className="grid grid-cols-[76px_1fr] items-center gap-2">
+                  <div className="rounded-[7px] border border-line-2 bg-surface py-2.5 text-center text-xs font-medium text-ink-2">
+                    ₹ / mo
+                  </div>
+                  <input name="cur_sal" type="number" min={0} placeholder="e.g. 25000" className={inputClasses} />
                 </div>
-                <input name="cur_sal" type="number" min={0} placeholder="e.g. 25000" className={inputClasses} />
+                <div className="mt-1.25 text-xs text-ink-3">Enter 0 if fresher or intern</div>
               </div>
-              <div className="mt-1.25 text-xs text-ink-3">Enter 0 if fresher or intern</div>
-            </div>
-            <div>
-              <label className={labelClasses}>
-                Expected salary (monthly) <span className="text-[#ef4444]">*</span>
-              </label>
-              <div className="grid grid-cols-[76px_1fr] items-center gap-2">
-                <div className="rounded-[7px] border border-line-2 bg-surface py-2.5 text-center text-xs font-medium text-ink-2">
-                  ₹ / mo
+              <div>
+                <label className={labelClasses}>
+                  Expected salary (monthly) <span className="text-[#ef4444]">*</span>
+                </label>
+                <div className="grid grid-cols-[76px_1fr] items-center gap-2">
+                  <div className="rounded-[7px] border border-line-2 bg-surface py-2.5 text-center text-xs font-medium text-ink-2">
+                    ₹ / mo
+                  </div>
+                  <input name="exp_sal" type="number" min={0} placeholder="e.g. 35000" className={inputClasses} />
                 </div>
-                <input name="exp_sal" type="number" min={0} placeholder="e.g. 35000" className={inputClasses} />
+              </div>
+            </div>
+            <div className="mt-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+              <div>
+                <label className={labelClasses}>Availability to join</label>
+                <select name="notice" defaultValue="" className={inputClasses}>
+                  <option value="">Select</option>
+                  {noticeOptions.map((o) => (
+                    <option key={o}>{o}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelClasses}>Work mode</label>
+                <input
+                  type="text"
+                  value="On-site (Gurugram)"
+                  readOnly
+                  className={`${inputClasses} cursor-default bg-surface text-ink-2`}
+                />
               </div>
             </div>
           </div>
-          <div className="mt-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-            <div>
-              <label className={labelClasses}>Availability to join</label>
-              <select name="notice" defaultValue="" className={inputClasses}>
-                <option value="">Select</option>
-                {noticeOptions.map((o) => (
-                  <option key={o}>{o}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className={labelClasses}>Work mode</label>
-              <input
-                type="text"
-                value="On-site (Gurugram)"
-                readOnly
-                className={`${inputClasses} cursor-default bg-surface text-ink-2`}
-              />
-            </div>
-          </div>
-        </div>
+        )}
 
         {/* Resume */}
         <div className={cardClasses}>
-          <div className={sectionLabelClasses}>Resume / CV</div>
+          <div className={sectionLabelClasses}>
+            Resume / CV <span className="text-[#ef4444]">*</span>
+          </div>
           <div className="relative rounded-[10px] border-[1.5px] border-dashed border-line-2 bg-surface p-7 px-5 text-center transition-colors hover:border-blue hover:bg-blue-light">
             <input
               ref={resumeInputRef}
@@ -457,33 +421,35 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
           />
         </div>
 
-        {/* Portfolio */}
-        <div className={cardClasses}>
-          <div className={sectionLabelClasses}>Portfolio</div>
-          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-            <div>
-              <label className={labelClasses}>Portfolio / Drive link</label>
-              <input name="portfolio" type="url" placeholder="Google Drive, Behance..." className={inputClasses} />
+        {/* Portfolio — skipped for roles with no creative/technical skill sections */}
+        {showPortfolioWork && (
+          <div className={cardClasses}>
+            <div className={sectionLabelClasses}>Portfolio</div>
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+              <div>
+                <label className={labelClasses}>Portfolio / Drive link</label>
+                <input name="portfolio" type="url" placeholder="Google Drive, Behance..." className={inputClasses} />
+              </div>
+              <div>
+                <label className={labelClasses}>Instagram / YouTube channel</label>
+                <input
+                  name="social"
+                  type="url"
+                  placeholder="https://www.instagram.com/..."
+                  className={inputClasses}
+                />
+              </div>
             </div>
-            <div>
-              <label className={labelClasses}>Instagram / YouTube channel</label>
-              <input
-                name="social"
-                type="url"
-                placeholder="https://www.instagram.com/..."
-                className={inputClasses}
+            <div className="mt-3.5">
+              <label className={labelClasses}>2-3 best work sample links</label>
+              <textarea
+                name="samples"
+                placeholder="Paste video links, one per line. Reels, Shorts, YouTube..."
+                className={`${inputClasses} min-h-22.5 resize-y leading-relaxed`}
               />
             </div>
           </div>
-          <div className="mt-3.5">
-            <label className={labelClasses}>2-3 best work sample links</label>
-            <textarea
-              name="samples"
-              placeholder="Paste video links, one per line. Reels, Shorts, YouTube..."
-              className={`${inputClasses} min-h-22.5 resize-y leading-relaxed`}
-            />
-          </div>
-        </div>
+        )}
 
         {/* Experience */}
         <div className={cardClasses}>
@@ -654,15 +620,17 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
         {/* Final questions */}
         <div className={cardClasses}>
           <div className={sectionLabelClasses}>Final questions</div>
-          <div>
-            <label className={labelClasses}>Tell us about a project you&apos;re most proud of</label>
-            <textarea
-              name="proud"
-              placeholder="What did you make or achieve? What made it stand out?"
-              className={`${inputClasses} min-h-27.5 resize-y leading-relaxed`}
-            />
-          </div>
-          <div className="mt-3.5">
+          {showPortfolioWork && (
+            <div>
+              <label className={labelClasses}>Tell us about a project you&apos;re most proud of</label>
+              <textarea
+                name="proud"
+                placeholder="What did you make or achieve? What made it stand out?"
+                className={`${inputClasses} min-h-27.5 resize-y leading-relaxed`}
+              />
+            </div>
+          )}
+          <div className={showPortfolioWork ? "mt-3.5" : ""}>
             <label className={labelClasses}>How did you hear about this opening?</label>
             <select name="source" defaultValue="" className={inputClasses}>
               <option value="">Select</option>
@@ -696,25 +664,25 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
         </p>
       </div>
 
-      {/* Sticky sidebar: role picker + trust info */}
+      {/* Sticky sidebar: role summary + trust info */}
       <div className="order-1 lg:order-2">
         <div className="lg:sticky lg:top-28">
           <div className="rounded-[14px] border border-line bg-white p-6">
-            <div className={sectionLabelClasses}>
-              Applying for <span className="text-[#ef4444]">*</span>
-            </div>
-            <div className="flex flex-col gap-2.5">
-              {roles.map((role) => (
-                <RoleRow
-                  key={role.slug}
-                  icon={role.icon}
-                  title={role.title}
-                  schedule={role.schedule}
-                  salary={formatSalary(role)}
-                  selected={selectedRoleSlug === role.slug}
-                  onSelect={() => setSelectedRoleSlug(role.slug)}
-                />
-              ))}
+            <div className={sectionLabelClasses}>Applying for</div>
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-light">
+                {/* getRoleIcon always returns a stable reference from the fixed icon registry, never a newly-created component. */}
+                {/* eslint-disable-next-line react-hooks/static-components */}
+                <RoleIcon size={18} weight="regular" className="text-blue" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-bold text-ink">{role.title}</div>
+                <div className="mt-0.5 text-xs text-ink-2">{role.schedule}</div>
+                <div className="mt-1 text-xs font-bold text-blue">
+                  {formatSalary(role)}
+                  {role.salaryDisclosed ? " / mo" : ""}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -731,12 +699,20 @@ export function ApplyForm({ roles, initialRoleSlug }: { roles: Role[]; initialRo
                 <ClockIcon size={16} weight="bold" className="mt-0.5 shrink-0 text-blue" />
                 We reply within 3 to 5 business days
               </li>
-              <li className="flex items-start gap-2.5 text-[13px] text-ink-2">
-                <EnvelopeIcon size={16} weight="bold" className="mt-0.5 shrink-0 text-blue" />
-                <a href={`mailto:${siteConfig.email}`} className="font-semibold text-blue hover:underline">
-                  {siteConfig.email}
-                </a>
-              </li>
+              {/* Clinical roles (no skill sections) lead with Dr. Gupta's
+                  email since he's the relevant contact; creative/content
+                  roles lead with the general inbox. */}
+              {(showPortfolioWork
+                ? [siteConfig.email, siteConfig.founder.email]
+                : [siteConfig.founder.email, siteConfig.email]
+              ).map((email) => (
+                <li key={email} className="flex items-start gap-2.5 text-[13px] text-ink-2">
+                  <EnvelopeIcon size={16} weight="bold" className="mt-0.5 shrink-0 text-blue" />
+                  <a href={`mailto:${email}`} className="font-semibold text-blue hover:underline">
+                    {email}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

@@ -78,11 +78,38 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
 
+  const hasResumeFile = resumeFile instanceof File && resumeFile.size > 0;
+  if (!hasResumeFile && !data.resume_link) {
+    return Response.json(
+      { success: false, message: "Please fill in all required fields correctly." },
+      { status: 400 },
+    );
+  }
+
   await connectDB();
   const { getRoleBySlug } = await import("@/lib/roles");
   const role = await getRoleBySlug(data.roleSlug);
-  if (!role) {
+  if (!role || role.status !== "published") {
     return Response.json({ success: false, message: "That role could not be found." }, { status: 400 });
+  }
+
+  // Salary is only collected for roles that disclose it publicly — the
+  // rest are discussed personally, per the role's salaryDisclosed flag.
+  let currentSalary: number | undefined;
+  let expectedSalary: number | undefined;
+  if (role.salaryDisclosed) {
+    const curNum = Number(data.cur_sal);
+    const expNum = Number(data.exp_sal);
+    const curValid = data.cur_sal !== undefined && data.cur_sal !== "" && Number.isFinite(curNum) && curNum >= 0;
+    const expValid = data.exp_sal !== undefined && data.exp_sal !== "" && Number.isFinite(expNum) && expNum >= 0;
+    if (!curValid || !expValid) {
+      return Response.json(
+        { success: false, message: "Please fill in all required fields correctly." },
+        { status: 400 },
+      );
+    }
+    currentSalary = curNum;
+    expectedSalary = expNum;
   }
 
   // Resume: try a Blob upload if a file was attached and configured; a
@@ -98,7 +125,7 @@ export async function POST(request: Request) {
     pastedLink?: string;
   } = data.resume_link ? { source: "link", pastedLink: data.resume_link } : { source: "none" };
 
-  if (resumeFile instanceof File && resumeFile.size > 0) {
+  if (hasResumeFile && resumeFile instanceof File) {
     try {
       const uploaded = await uploadResumeIfConfigured(resumeFile, data.name);
       if (uploaded) {
@@ -124,8 +151,8 @@ export async function POST(request: Request) {
     roleTitle: role.title,
     applicant: { name: data.name, phone: data.phone, email: data.email, city: data.city || undefined },
     compensation: {
-      currentSalary: data.cur_sal,
-      expectedSalary: data.exp_sal,
+      currentSalary,
+      expectedSalary,
       noticePeriod: data.notice || undefined,
       workMode: "On-site (Gurugram)",
     },

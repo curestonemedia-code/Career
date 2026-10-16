@@ -25,7 +25,7 @@ export function CtaSection() {
           great together.
         </h2>
         <p className="mx-auto mb-10 max-w-[460px] text-[17px] leading-[1.7] text-white/58">
-          Three roles are open right now. Find the one that fits and apply in about 5 minutes.
+          Open roles are waiting right now. Find the one that fits and apply in about 5 minutes.
         </p>
         <a
           href="#positions"

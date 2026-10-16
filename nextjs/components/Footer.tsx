@@ -15,7 +15,6 @@ const bottomLinks = [
   { label: "About", href: "/#about" },
   { label: "Founder", href: "/#doctor" },
   { label: "Open Roles", href: "/#positions" },
-  { label: "Apply", href: "/apply" },
 ];
 
 export async function Footer() {
@@ -24,10 +23,10 @@ export async function Footer() {
   const footerSections = [
     {
       title: "Open Roles",
-      links: [
-        ...roles.map((role) => ({ label: role.title, href: `/careers/${role.slug}` })),
-        { label: "Apply Now", href: "/apply" },
-      ],
+      links:
+        roles.length > 0
+          ? roles.map((role) => ({ label: role.title, href: `/careers/${role.slug}` }))
+          : [{ label: "View open roles", href: "/#positions" }],
     },
     {
       title: "About Cure Stone",
@@ -66,9 +65,9 @@ export async function Footer() {
               </div>
             </Link>
             <p className="max-w-sm text-[13px] leading-relaxed text-white/55">
-              Cure Stone is a healthcare media brand in Gurugram, hiring across video, camera, and
-              SEO roles to help more patients find and understand reliable kidney health
-              information.
+              Cure Stone is a healthcare media brand in Gurugram, hiring across clinical and
+              content roles to help more patients find and receive reliable kidney health
+              care.
             </p>
             <div className="space-y-3 text-[13px]">
               <a

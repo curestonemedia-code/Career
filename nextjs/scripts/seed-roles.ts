@@ -49,7 +49,9 @@ const seedRoles = [
       "Basic photography or on-set videography knowledge",
     ],
     skillSections: ["video", "photo", "ai"],
-    status: "published",
+    // Position filled — closed rather than deleted so past applications
+    // tied to this role stay intact in the admin panel.
+    status: "closed",
   },
   {
     slug: "seo-intern",
@@ -129,6 +131,41 @@ const seedRoles = [
       body: "A Sony a7 IV paired with the FE 24-70mm F2.8 GM II, a professional hybrid setup with 33MP detail, fast autofocus, and a lightweight body built for full shooting days.",
     },
     skillSections: ["photo"],
+    // Position filled — closed rather than deleted so past applications
+    // tied to this role stay intact in the admin panel.
+    status: "closed",
+  },
+  {
+    slug: "urologist",
+    title: "Urologist",
+    identifier: "curestone-urologist-gurugram",
+    icon: "stethoscope",
+    employmentType: "FULL_TIME",
+    employmentLabel: "Full-time",
+    schedule: "6 days a week",
+    tagline: "Lead patient care for kidney stone and urological treatment at Cure Stone.",
+    description:
+      "Cure Stone, a kidney health and urology practice in Gurugram led by Dr. Deepanshu Gupta, is hiring a full-time, on-site Urologist to consult, diagnose, and treat patients, with a focus on kidney stone management including laser-based procedures. You'll work alongside the founding team to deliver patient care and help shape how Cure Stone grows. Compensation is discussed personally with shortlisted candidates rather than posted publicly — apply below and share a bit about yourself, and we'll reach out directly.",
+    datePosted: new Date("2026-01-01"),
+    validThrough: new Date("2026-12-31"),
+    salary: { currency: "INR", min: 0, max: 0, unit: "MONTH" },
+    salaryDisclosed: false,
+    responsibilities: [
+      "Consult with patients on kidney stone and other urological conditions",
+      "Diagnose and plan treatment, including laser-based stone management (URS/RIRS/lithotripsy)",
+      "Perform or assist procedures in coordination with the clinical team",
+      "Maintain accurate patient records and follow-up care plans",
+      "Collaborate with Dr. Deepanshu Gupta on patient care standards and clinic growth",
+      "Stay current with best practices in urology and endourology",
+    ],
+    requirements: [
+      "MBBS with MS, DNB/MCH in Urology (or equivalent recognised qualification)",
+      "Valid medical registration to practise in India",
+      "Prior experience in urology, ideally with endourology or laser stone treatment",
+      "Strong patient communication and bedside manner",
+      "Based in or willing to relocate to Gurugram",
+    ],
+    skillSections: [],
     status: "published",
   },
 ];

@@ -20,11 +20,11 @@ export function Videos() {
       <div className="mx-auto max-w-[1100px]">
         <Reveal className="mb-10">
           <h2 className="mb-3.5 text-[clamp(26px,4vw,44px)] leading-[1.12] font-extrabold tracking-[-0.025em]">
-            See the content you&apos;d be part of
+            The patient education you&apos;d help create
           </h2>
           <p className="max-w-[560px] text-base leading-[1.75] text-ink-2">
-            Examples of what our team produces today. Raw footage turned into content that
-            educates and retains viewers.
+            A look at how we turn Dr. Deepanshu Gupta&apos;s clinical expertise into videos that help
+            patients understand kidney health and treatment, reaching millions along the way.
           </p>
         </Reveal>
 

@@ -17,6 +17,7 @@ const navLinks = [
   { href: "/#doctor", label: "Founder" },
   { href: "/#positions", label: "Open Roles" },
   { href: "/#videos", label: "Our Work" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 const socials = [

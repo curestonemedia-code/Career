@@ -18,11 +18,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.9,
     })),
-    {
-      url: `${siteConfig.url}/apply`,
+    ...roles.map((role) => ({
+      url: `${siteConfig.url}/apply/${role.slug}`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.8,
-    },
+    })),
   ];
 }

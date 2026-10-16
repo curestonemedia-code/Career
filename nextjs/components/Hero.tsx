@@ -1,9 +1,10 @@
 "use client";
 
-import { ArrowRightIcon, UsersThreeIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, StethoscopeIcon, UsersThreeIcon } from "@phosphor-icons/react/dist/ssr";
 import { motion, useReducedMotion } from "motion/react";
+import { siteConfig } from "@/lib/site-config";
 
-export function Hero() {
+export function Hero({ openRoleCount }: { openRoleCount: number }) {
   const reduce = useReducedMotion();
   const fadeUp = (delay: number) =>
     reduce
@@ -48,41 +49,50 @@ export function Hero() {
           {...fadeUp(0)}
           className="mb-7 inline-flex items-center gap-2 rounded-full border border-blue/45 bg-blue/22 px-4 py-1.5 text-[11px] font-bold tracking-[0.07em] text-[#93c5fd] uppercase"
         >
-          <UsersThreeIcon size={14} weight="bold" />3 Roles Open &nbsp;·&nbsp; Gurugram
+          <UsersThreeIcon size={14} weight="bold" />
+          {openRoleCount} Open Position{openRoleCount === 1 ? "" : "s"} &nbsp;·&nbsp; Gurugram
         </motion.div>
         <motion.h1
           {...fadeUp(0.08)}
           className="mb-6 text-[clamp(38px,6.5vw,74px)] leading-[1.08] font-extrabold tracking-[-0.035em] text-white"
         >
-          Create Content That
+          Join Gurugram&apos;s Leading
           <br />
           <span className="bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] bg-clip-text text-transparent">
-            Heals &amp; Inspires
+            Kidney Care Team
           </span>
         </motion.h1>
         <motion.p
           {...fadeUp(0.16)}
-          className="mx-auto mb-10 max-w-lg text-[clamp(15px,2vw,19px)] leading-[1.75] text-white/62"
+          className="mx-auto mb-5 max-w-lg text-[clamp(15px,2vw,19px)] leading-[1.75] text-white/62"
         >
-          We&apos;re <strong className="font-semibold text-white/88">Cure Stone</strong>, a
-          healthcare media brand in Gurugram hiring across video, camera, and SEO roles.
+          We&apos;re <strong className="font-semibold text-white/88">Cure Stone</strong>, a kidney
+          health practice and media brand in Gurugram — hiring across clinical and content roles
+          to help more patients get the care they need.
         </motion.p>
         <motion.div
-          {...fadeUp(0.24)}
+          {...fadeUp(0.2)}
+          className="mb-10 inline-flex items-center gap-2 text-[13px] font-medium text-white/55"
+        >
+          <StethoscopeIcon size={15} weight="bold" className="text-[#93c5fd]" />
+          Led by {siteConfig.founder.name}, {siteConfig.founder.title}
+        </motion.div>
+        <motion.div
+          {...fadeUp(0.28)}
           className="flex flex-wrap items-center justify-center gap-3.5"
         >
           <a
             href="#positions"
             className="inline-flex items-center gap-2 rounded-[10px] bg-blue px-7.5 py-3.5 text-[15px] font-semibold text-white shadow-[0_4px_28px_rgba(43,92,230,.5)] transition-all hover:-translate-y-0.5 hover:bg-blue-dark hover:shadow-[0_8px_36px_rgba(43,92,230,.55)]"
           >
-            View Openings
+            View Open Positions
             <ArrowRightIcon size={16} weight="bold" />
           </a>
           <a
             href="#doctor"
             className="inline-flex items-center gap-2 rounded-[10px] border border-white/18 px-6 py-3.5 text-[15px] font-medium text-white/78 transition-colors hover:bg-white/8 hover:text-white"
           >
-            Meet the team
+            Meet Dr. Deepanshu Gupta
           </a>
         </motion.div>
       </div>

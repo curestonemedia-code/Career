@@ -31,7 +31,7 @@ export async function generateMetadata(props: PageProps<"/careers/[slug]">): Pro
   const role = await getRoleBySlug(slug);
   if (!role || role.status === "draft") return {};
 
-  const title = `${role.title} (${formatSalary(role)}/mo)`;
+  const title = role.salaryDisclosed ? `${role.title} (${formatSalary(role)}/mo)` : role.title;
   const description = `${role.tagline} ${role.employmentLabel}, on-site in Gurugram. Apply to the ${role.title} role at Cure Stone.`;
 
   return {

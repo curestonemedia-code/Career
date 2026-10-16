@@ -21,6 +21,7 @@ export const siteConfig = {
   founder: {
     name: "Dr. Deepanshu Gupta",
     title: "Founder & Medical Director, Cure Stone",
+    email: "deepanshu@thecurestone.com",
   },
   social: {
     youtube: "https://www.youtube.com/@cure_stone",
@@ -28,9 +29,9 @@ export const siteConfig = {
     facebook: "https://www.facebook.com/curestone",
   },
   stats: {
-    subscribers: "730K+",
+    subscribers: "850K+",
     views: "100M+",
-    videosPublished: "200+",
+    videosPublished: "1.4K+",
     yearsActive: "5+ yrs",
   },
 } as const;

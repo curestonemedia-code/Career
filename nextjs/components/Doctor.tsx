@@ -35,7 +35,7 @@ const highlights = [
   {
     Icon: MedalIcon,
     text: "Built Cure Stone from zero",
-    subtext: "Founded the YouTube channel and grew it to 730K+ subscribers.",
+    subtext: `Founded the YouTube channel and grew it to ${siteConfig.stats.subscribers} subscribers.`,
   },
   {
     Icon: HeartbeatIcon,

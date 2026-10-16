@@ -15,17 +15,16 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Join Cure Stone: 3 Roles Open in Gurugram",
+    default: "Join Cure Stone: Open Roles in Gurugram",
     template: `%s | ${siteConfig.name} Careers`,
   },
   description:
-    "Cure Stone is hiring a Video Editor, SEO Intern, and Camera Operator in Gurugram to create content that educates millions on kidney health. Apply today.",
+    "Cure Stone is hiring an SEO Intern and a Urologist in Gurugram to help more patients find and receive reliable kidney health care. Apply today.",
   keywords: [
-    "video editor jobs Gurugram",
     "SEO intern jobs Gurugram",
-    "camera operator jobs Gurugram",
+    "urologist jobs Gurugram",
     "Cure Stone careers",
-    "healthcare content jobs India",
+    "healthcare jobs India",
   ],
   authors: [{ name: siteConfig.legalName }],
   creator: siteConfig.legalName,
@@ -38,24 +37,17 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: siteConfig.url,
     siteName: `${siteConfig.name} Careers`,
-    title: "Join Cure Stone: 3 Roles Open in Gurugram",
+    title: "Join Cure Stone: Open Roles in Gurugram",
     description:
-      "We're hiring a Video Editor, SEO Intern, and Camera Operator in Gurugram to bring our medical stories to life for an audience of millions.",
-    images: [
-      {
-        url: "/logo.png",
-        width: 512,
-        height: 512,
-        alt: `${siteConfig.name} logo`,
-      },
-    ],
+      "We're hiring an SEO Intern and a Urologist in Gurugram to bring reliable kidney health care and content to more patients.",
+    // og:image / twitter:image come from app/opengraph-image.tsx and
+    // app/twitter-image.tsx (generated at build time), not set here.
   },
   twitter: {
-    card: "summary",
-    title: "Join Cure Stone: 3 Roles Open in Gurugram",
+    card: "summary_large_image",
+    title: "Join Cure Stone: Open Roles in Gurugram",
     description:
-      "We're hiring a Video Editor, SEO Intern, and Camera Operator in Gurugram to bring our medical stories to life for an audience of millions.",
-    images: ["/logo.png"],
+      "We're hiring an SEO Intern and a Urologist in Gurugram to bring reliable kidney health care and content to more patients.",
   },
   robots: {
     index: true,

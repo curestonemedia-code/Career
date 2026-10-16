@@ -105,7 +105,7 @@ export async function RoleDetail({ role }: { role: Role }) {
 
           {!isClosed && (
             <Link
-              href={`/apply?role=${role.slug}`}
+              href={`/apply/${role.slug}`}
               className="group relative shrink-0 rounded-full bg-blue px-8 py-3.5 text-sm font-black tracking-wide text-white uppercase shadow-lg shadow-blue/25"
             >
               <span className="absolute inset-[-3px] rounded-full border-2 border-blue transition-colors group-hover:border-blue-dark" />
@@ -183,7 +183,7 @@ export async function RoleDetail({ role }: { role: Role }) {
                     within 3 to 5 business days.
                   </p>
                   <Link
-                    href={`/apply?role=${role.slug}`}
+                    href={`/apply/${role.slug}`}
                     className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-black text-ink transition-all hover:-translate-y-0.5"
                   >
                     Apply for this role
@@ -200,9 +200,11 @@ export async function RoleDetail({ role }: { role: Role }) {
               <div className="rounded-3xl border border-line bg-surface p-6">
                 <div className="mb-5 border-b border-line pb-5">
                   <p className="text-[10px] font-black tracking-widest text-ink-3 uppercase">
-                    Monthly salary
+                    {role.salaryDisclosed ? "Monthly salary" : "Compensation"}
                   </p>
-                  <p className="mt-1 text-[26px] font-black text-blue">{formatSalary(role)}</p>
+                  <p className={role.salaryDisclosed ? "mt-1 text-[26px] font-black text-blue" : "mt-1 text-[15px] font-bold text-ink-2"}>
+                    {formatSalary(role)}
+                  </p>
                 </div>
                 <dl className="flex flex-col gap-4">
                   <div className="flex items-center gap-3">
@@ -232,7 +234,7 @@ export async function RoleDetail({ role }: { role: Role }) {
                   </div>
                 ) : (
                   <Link
-                    href={`/apply?role=${role.slug}`}
+                    href={`/apply/${role.slug}`}
                     className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue py-3.5 text-sm font-black text-white shadow-lg shadow-blue/20 transition-all hover:-translate-y-0.5 hover:bg-blue-dark"
                   >
                     Apply for this role
@@ -259,7 +261,10 @@ export async function RoleDetail({ role }: { role: Role }) {
                           </div>
                           <div className="min-w-0 flex-1">
                             <p className="truncate text-[13px] font-bold text-ink">{r.title}</p>
-                            <p className="text-[11px] text-ink-2">{formatSalary(r)} / mo</p>
+                            <p className="text-[11px] text-ink-2">
+                              {formatSalary(r)}
+                              {r.salaryDisclosed ? " / mo" : ""}
+                            </p>
                           </div>
                           <ArrowRightIcon
                             size={14}

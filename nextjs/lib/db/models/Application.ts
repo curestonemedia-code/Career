@@ -41,8 +41,10 @@ const ApplicationSchema = new Schema(
     },
 
     compensation: {
-      currentSalary: { type: Number, required: true, min: 0 },
-      expectedSalary: { type: Number, required: true, min: 0 },
+      // Optional: roles with salaryDisclosed: false on the Role don't ask
+      // the applicant for salary expectations at all.
+      currentSalary: { type: Number, min: 0 },
+      expectedSalary: { type: Number, min: 0 },
       noticePeriod: { type: String, trim: true },
       workMode: { type: String, default: "On-site (Gurugram)" },
     },

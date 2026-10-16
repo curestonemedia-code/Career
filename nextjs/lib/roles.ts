@@ -29,6 +29,7 @@ export type Role = {
   datePosted: string;
   validThrough: string;
   salary: { currency: "INR"; min: number; max: number; unit: "MONTH" };
+  salaryDisclosed: boolean;
   responsibilities: string[];
   requirements: string[];
   bonusSkills?: string[];
@@ -61,6 +62,7 @@ function toPlainRole(doc: any): Role {
       max: doc.salary.max,
       unit: doc.salary.unit,
     },
+    salaryDisclosed: doc.salaryDisclosed ?? true,
     responsibilities: doc.responsibilities ?? [],
     requirements: doc.requirements ?? [],
     bonusSkills: doc.bonusSkills ?? undefined,

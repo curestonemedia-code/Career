@@ -7,6 +7,7 @@ import {
   MagnifyingGlassIcon,
   MegaphoneIcon,
   PencilSimpleIcon,
+  StethoscopeIcon,
   UsersThreeIcon,
   VideoCameraIcon,
 } from "@phosphor-icons/react/dist/ssr";
@@ -25,6 +26,7 @@ export const roleIconRegistry = {
   "chart-line-up": { label: "Growth / Sales", Icon: ChartLineUpIcon },
   code: { label: "Engineering", Icon: CodeIcon },
   headset: { label: "Support", Icon: HeadsetIcon },
+  stethoscope: { label: "Clinical / Medical", Icon: StethoscopeIcon },
 } as const;
 
 export type RoleIconKey = keyof typeof roleIconRegistry;

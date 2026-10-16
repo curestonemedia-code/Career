@@ -1,6 +1,7 @@
 import { About } from "@/components/About";
 import { CtaSection } from "@/components/CtaSection";
 import { Doctor } from "@/components/Doctor";
+import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { JsonLd } from "@/components/JsonLd";
@@ -19,13 +20,14 @@ export default async function Home() {
     <>
       <JsonLd data={jobPostingListSchema(roles)} />
       <Nav />
-      <Hero />
+      <Hero openRoleCount={roles.length} />
       <StatsStrip />
       <About />
       <Doctor />
       <Positions />
       <Videos />
       <Perks />
+      <FAQ />
       <CtaSection />
       <Footer />
     </>

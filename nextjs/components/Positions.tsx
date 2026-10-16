@@ -18,7 +18,7 @@ export async function Positions() {
             Join the team behind the channel
           </h2>
           <p className="mb-10 max-w-[560px] text-base leading-[1.75] text-ink-2">
-            Three roles, all on-site in Gurugram. Pick the one that matches your craft.
+            Open roles in Gurugram. Pick the one that matches your craft.
           </p>
         </Reveal>
 
@@ -53,7 +53,8 @@ export async function Positions() {
                         On-site, Gurugram
                       </span>
                       <span className="rounded-md bg-blue-light px-2.5 py-1 text-xs font-semibold text-blue">
-                        {formatSalary(role)} / mo
+                        {formatSalary(role)}
+                        {role.salaryDisclosed ? " / mo" : ""}
                       </span>
                     </div>
                   </div>

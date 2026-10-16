@@ -184,7 +184,6 @@ export function RoleForm({ role }: { role?: Role }) {
               type="number"
               min={0}
               defaultValue={role?.salary.min}
-              required
               className={inputClasses}
             />
           </div>
@@ -195,12 +194,25 @@ export function RoleForm({ role }: { role?: Role }) {
               type="number"
               min={0}
               defaultValue={role?.salary.max}
-              required
               className={inputClasses}
             />
             {fieldError(state?.fieldErrors, "salaryMax")}
           </div>
         </div>
+        <label className="mt-3.5 flex cursor-pointer items-center gap-2.5 rounded-[7px] border border-line-2 px-3.25 py-2.5 text-sm text-ink transition-colors hover:border-blue-mid">
+          <input
+            type="checkbox"
+            name="salaryDisclosed"
+            defaultChecked={role?.salaryDisclosed ?? true}
+            className="h-4 w-4 accent-blue"
+          />
+          Publicly disclose this salary range
+        </label>
+        <p className="mt-1.5 text-xs text-ink-3">
+          When unchecked, the salary range above is kept for internal reference only — the public
+          site and apply form show &quot;Compensation discussed personally&quot; instead and don&apos;t ask
+          applicants for salary expectations.
+        </p>
         <div className="mt-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
           <div>
             <label className={labelClasses}>Date posted</label>

@@ -29,8 +29,10 @@ export const ApplySchema = z.object({
   email: z.string().trim().email(),
   city: z.string().trim().optional(),
 
-  cur_sal: z.coerce.number().min(0),
-  exp_sal: z.coerce.number().min(0),
+  // Required only when the role discloses salary — validated against the
+  // fetched role in app/api/apply/route.ts, since zod alone can't see it.
+  cur_sal: z.string().trim().optional(),
+  exp_sal: z.string().trim().optional(),
   notice: z.string().trim().optional(),
 
   resume_link: z.string().trim().optional(),
