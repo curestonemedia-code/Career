@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
             <div className={styles["gc-logo"]}>
               <Image src={siteConfig.logo} alt={siteConfig.name} width={140} height={44} className="h-11 w-auto object-contain object-left" />
             </div>
-            <div className={styles["gc-features"]} style={{ marginTop: 40 }}>
+            <div className={styles["gc-features"]} style={{ marginTop: 68 }}>
               <div className={styles["gc-feat-item"]}>
                 <div className={`${styles["gc-feat-icon"]} ${styles.blue}`}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">

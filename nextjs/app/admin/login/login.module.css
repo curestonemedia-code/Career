@@ -106,11 +106,16 @@
   padding: 52px 48px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+}
+.gc-right form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .gc-heading {
   font-size: 28px;
   font-weight: 700;
+  line-height: 1;
   color: #202124;
   letter-spacing: -0.5px;
   margin: 0 0 4px;
@@ -236,7 +241,8 @@
 .gc-btn-row {
   display: flex;
   justify-content: flex-end;
-  margin-top: 8px;
+  margin-top: auto;
+  padding-top: 8px;
 }
 .gc-submit {
   padding: 11px 32px;
