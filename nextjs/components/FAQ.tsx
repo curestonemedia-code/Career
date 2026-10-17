@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     question: "What is Cure Stone?",
-    answer: `${siteConfig.shortDescription} Our YouTube channel has ${siteConfig.stats.subscribers} subscribers and ${siteConfig.stats.views} views across ${siteConfig.stats.videosPublished} videos over ${siteConfig.stats.yearsActive}, educating patients on kidney health and treatment.`,
+    answer: `${siteConfig.shortDescription} We've performed ${siteConfig.stats.surgeries} surgeries and treated ${siteConfig.stats.patientsTreated} patients with a ${siteConfig.stats.successRate} success rate, and we educate millions on kidney health through our YouTube channel.`,
   },
   {
     question: "Do I need prior experience to apply?",

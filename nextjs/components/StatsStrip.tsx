@@ -2,9 +2,9 @@ import { siteConfig } from "@/lib/site-config";
 import { Reveal } from "./Reveal";
 
 const stats = [
-  { n: siteConfig.stats.subscribers, l: "YouTube subscribers" },
-  { n: siteConfig.stats.views, l: "Total views" },
-  { n: siteConfig.stats.yearsActive, l: "Publishing content" },
+  { n: siteConfig.stats.surgeries, l: "Surgeries performed" },
+  { n: siteConfig.stats.patientsTreated, l: "Patients treated" },
+  { n: siteConfig.stats.successRate, l: "Stone-free success rate" },
   { n: "3", l: "Open roles" },
 ];
 

@@ -28,11 +28,12 @@ export const siteConfig = {
     instagram: "https://www.instagram.com/the_cure_stone/",
     facebook: "https://www.facebook.com/curestone",
   },
+  // Clinical stats, sourced from the main practice site (thecurestone.com).
   stats: {
-    subscribers: "850K+",
-    views: "100M+",
-    videosPublished: "1.4K+",
-    yearsActive: "5+ yrs",
+    surgeries: "9,000+",
+    patientsTreated: "30,000+",
+    successRate: "98%",
+    yearsExperience: "15+ yrs",
   },
 } as const;
 

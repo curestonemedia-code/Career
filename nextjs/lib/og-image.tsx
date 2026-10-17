@@ -52,7 +52,7 @@ export default function OgImage() {
             maxWidth: 920,
           }}
         >
-          Join the team behind the channel
+          Join the team behind the care
         </div>
         <div style={{ display: "flex", marginTop: 24, fontSize: 30, color: "rgba(255,255,255,0.82)" }}>
           Careers at {siteConfig.name} · Gurugram
@@ -66,9 +66,9 @@ export default function OgImage() {
             color: "rgba(255,255,255,0.72)",
           }}
         >
-          <div style={{ display: "flex" }}>{siteConfig.stats.subscribers} subscribers</div>
-          <div style={{ display: "flex" }}>{siteConfig.stats.views} views</div>
-          <div style={{ display: "flex" }}>{siteConfig.stats.yearsActive} on YouTube</div>
+          <div style={{ display: "flex" }}>{siteConfig.stats.surgeries} surgeries</div>
+          <div style={{ display: "flex" }}>{siteConfig.stats.patientsTreated} patients treated</div>
+          <div style={{ display: "flex" }}>{siteConfig.stats.successRate} success rate</div>
         </div>
       </div>
     ),

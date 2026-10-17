@@ -20,10 +20,10 @@ const tags = [
 ];
 
 const stats = [
-  { n: siteConfig.stats.subscribers, l: "YouTube subscribers" },
-  { n: siteConfig.stats.views, l: "Total views" },
-  { n: siteConfig.stats.videosPublished, l: "Videos published" },
-  { n: siteConfig.stats.yearsActive, l: "Building content" },
+  { n: siteConfig.stats.surgeries, l: "Surgeries performed" },
+  { n: siteConfig.stats.patientsTreated, l: "Patients treated" },
+  { n: siteConfig.stats.successRate, l: "Stone-free success" },
+  { n: siteConfig.stats.yearsExperience, l: "Experience" },
 ];
 
 const highlights = [
@@ -35,7 +35,7 @@ const highlights = [
   {
     Icon: MedalIcon,
     text: "Built Cure Stone from zero",
-    subtext: `Founded the YouTube channel and grew it to ${siteConfig.stats.subscribers} subscribers.`,
+    subtext: `Grew Cure Stone into a practice with ${siteConfig.stats.surgeries} surgeries performed.`,
   },
   {
     Icon: HeartbeatIcon,

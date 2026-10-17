@@ -35,7 +35,7 @@ ${roleLines}
 
 - Location: ${siteConfig.addressLines.street}, ${siteConfig.addressLines.locality}, ${siteConfig.addressLines.region} ${siteConfig.addressLines.postalCode}, ${siteConfig.addressLines.country}
 - Contact: ${siteConfig.email}
-- YouTube: ${siteConfig.stats.subscribers} subscribers, ${siteConfig.stats.views} views across ${siteConfig.stats.videosPublished} videos over ${siteConfig.stats.yearsActive}
+- Clinical track record: ${siteConfig.stats.surgeries} surgeries performed, ${siteConfig.stats.patientsTreated} patients treated, ${siteConfig.stats.successRate} success rate, ${siteConfig.stats.yearsExperience} experience
 
 ## Pages
 

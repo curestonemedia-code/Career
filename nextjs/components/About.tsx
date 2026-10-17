@@ -1,9 +1,9 @@
 import {
   HeartbeatIcon,
   MapTrifoldIcon,
-  MonitorIcon,
+  MedalIcon,
   ShieldCheckIcon,
-  TrendUpIcon,
+  UsersIcon,
   VideoCameraIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig } from "@/lib/site-config";
@@ -16,10 +16,10 @@ const pills = [
 ];
 
 const metrics = [
-  { n: siteConfig.stats.subscribers, l: "YouTube subscribers", color: "bl", Icon: VideoCameraIcon },
-  { n: siteConfig.stats.views, l: "Total views", color: "gr", Icon: TrendUpIcon },
-  { n: siteConfig.stats.videosPublished, l: "Videos published", color: "pu", Icon: MonitorIcon },
-  { n: siteConfig.stats.yearsActive, l: "In healthcare content", color: "or", Icon: ShieldCheckIcon },
+  { n: siteConfig.stats.surgeries, l: "Surgeries performed", color: "bl", Icon: HeartbeatIcon },
+  { n: siteConfig.stats.patientsTreated, l: "Patients treated", color: "gr", Icon: UsersIcon },
+  { n: siteConfig.stats.successRate, l: "Stone-free success rate", color: "pu", Icon: ShieldCheckIcon },
+  { n: siteConfig.stats.yearsExperience, l: "Years of experience", color: "or", Icon: MedalIcon },
 ];
 
 const colorMap: Record<string, { bg: string; text: string }> = {
@@ -35,7 +35,7 @@ export function About() {
       <div className="mx-auto grid max-w-[1100px] grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <h2 className="mb-3.5 text-[clamp(26px,4vw,44px)] leading-[1.12] font-extrabold tracking-[-0.025em]">
-            Healthcare content that connects with millions
+            Advanced kidney care trusted by thousands of patients
           </h2>
           <p className="max-w-[560px] text-base leading-[1.75] text-ink-2">
             Cure Stone is Gurugram&apos;s leading destination for advanced kidney stone laser
@@ -45,8 +45,9 @@ export function About() {
           </p>
           <p className="mt-3.5 max-w-[560px] text-base leading-[1.75] text-ink-2">
             Beyond the clinic, we believe an informed patient is an empowered patient. Through our
-            YouTube channel and social media, we educate millions on kidney health, stone
-            prevention, and what to expect from modern laser treatment.
+            YouTube channel and social media, we share that same clinical expertise with millions,
+            educating patients on kidney health, stone prevention, and what to expect from modern
+            laser treatment.
           </p>
           <div className="mt-7 flex flex-wrap gap-2.5">
             {pills.map((pill) => (
