@@ -7,8 +7,7 @@ export const siteConfig = {
   legalName: "Cure Stone LLP",
   shortDescription:
     "Gurugram's leading destination for advanced kidney stone laser treatment, and a healthcare media brand educating millions on kidney health.",
-  // TODO: replace with the live production domain before deploying.
-  url: "https://careers.thecurestone.com",
+  url: "https://career.thecurestone.com",
   email: "gulshan@thecurestone.com",
   logo: "/logo.png",
   addressLines: {
