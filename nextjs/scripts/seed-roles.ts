@@ -7,6 +7,42 @@ import { RoleModel } from "../lib/db/models/Role";
 // array is replaced by MongoDB. Safe to re-run.
 const seedRoles = [
   {
+    slug: "patient-experience-executive-female",
+    title: "Patient Experience Executive (Female)",
+    identifier: "curestone-patient-experience-executive-gurugram",
+    icon: "headset",
+    employmentType: "FULL_TIME",
+    employmentLabel: "Full-time",
+    schedule: "9:00 AM - 6:00 PM · Sunday off",
+    tagline: "Make every patient interaction feel supported, clear, and cared for.",
+    description:
+      "Cure Stone is a specialised Urology and Minimally Invasive Surgery (MIS) centre in Sector 52, Gurugram, offering advanced laser-based treatments for kidney stones and other urological conditions. We are looking for a compassionate and well-spoken Patient Experience Executive (Female) to ensure smooth patient communication, post-surgery follow-ups, and excellent patient care. This is a 100% non-sales role focused on helping every patient feel supported before, during, and after treatment.",
+    datePosted: new Date("2026-11-17"),
+    validThrough: new Date("2027-11-17"),
+    salary: { currency: "INR", min: 0, max: 0, unit: "MONTH" },
+    salaryLabel: "Based on experience and skills",
+    salaryDisclosed: true,
+    applicationMode: "simple",
+    responsibilities: [
+      "Follow up with patients after surgery to check their recovery experience",
+      "Handle patient queries, feedback, and concerns professionally",
+      "Coordinate with doctors regarding patient issues",
+      "Maintain accurate patient records and follow-up details",
+      "Support front desk operations whenever required",
+      "Ensure a positive and comfortable patient experience",
+    ],
+    requirements: [
+      "Female candidate with a minimum of 6 months of experience in customer service, patient coordination, or a related field",
+      "Excellent communication and interpersonal skills",
+      "Empathetic, patient-focused, and professional attitude",
+      "Good coordination and problem-solving abilities",
+      "Healthcare or hospital experience is an advantage",
+      "Immediate joiners preferred",
+    ],
+    skillSections: [],
+    status: "published",
+  },
+  {
     slug: "video-editor",
     title: "Video Editor",
     identifier: "curestone-video-editor-gurugram",

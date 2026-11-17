@@ -28,7 +28,9 @@ const RoleSchema = z
     validThrough: z.string().trim().min(1),
     salaryMin: z.coerce.number().min(0),
     salaryMax: z.coerce.number().min(0),
+    salaryLabel: z.string().trim().optional(),
     salaryDisclosed: z.boolean(),
+    applicationMode: z.enum(["standard", "simple"]),
     status: z.enum(["draft", "published", "closed"]),
     responsibilities: z.array(z.string().trim().min(1)).min(1, "Add at least one responsibility"),
     requirements: z.array(z.string().trim().min(1)).min(1, "Add at least one requirement"),
@@ -72,7 +74,9 @@ export async function saveRole(_prevState: RoleFormState, formData: FormData): P
     validThrough: formData.get("validThrough"),
     salaryMin: formData.get("salaryMin"),
     salaryMax: formData.get("salaryMax"),
+    salaryLabel: formData.get("salaryLabel") || undefined,
     salaryDisclosed: formData.get("salaryDisclosed") === "on",
+    applicationMode: formData.get("applicationMode") === "simple" ? "simple" : "standard",
     status: formData.get("status"),
     responsibilities: nonEmptyList(formData, "responsibilities"),
     requirements: nonEmptyList(formData, "requirements"),
@@ -107,7 +111,9 @@ export async function saveRole(_prevState: RoleFormState, formData: FormData): P
     datePosted: new Date(data.datePosted),
     validThrough: new Date(data.validThrough),
     salary: { currency: "INR", min: data.salaryMin, max: data.salaryMax, unit: "MONTH" },
+    salaryLabel: data.salaryLabel || undefined,
     salaryDisclosed: data.salaryDisclosed,
+    applicationMode: data.applicationMode,
     status: data.status,
     responsibilities: data.responsibilities,
     requirements: data.requirements,
@@ -144,6 +150,7 @@ function sparseUnsets(doc: Record<string, unknown>) {
   const unset: Record<string, ""> = {};
   if (doc.bonusSkills === undefined) unset.bonusSkills = "";
   if (doc.equipment === undefined) unset.equipment = "";
+  if (doc.salaryLabel === undefined) unset.salaryLabel = "";
   return unset;
 }
 

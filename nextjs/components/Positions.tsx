@@ -54,7 +54,7 @@ export async function Positions() {
                       </span>
                       <span className="rounded-md bg-blue-light px-2.5 py-1 text-xs font-semibold text-blue">
                         {formatSalary(role)}
-                        {role.salaryDisclosed ? " / mo" : ""}
+                        {role.salaryDisclosed && !role.salaryLabel ? " / mo" : ""}
                       </span>
                     </div>
                   </div>

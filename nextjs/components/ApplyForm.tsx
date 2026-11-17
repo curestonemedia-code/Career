@@ -180,6 +180,7 @@ export function ApplyForm({ role }: { role: Role }) {
   const showPhoto = skillSections.includes("photo");
   const showAi = skillSections.includes("ai");
   const showSeo = skillSections.includes("seo");
+  const isSimpleApplication = role.applicationMode === "simple";
   // Roles with no creative/technical skill sections (e.g. clinical hires)
   // skip the portfolio question and "proud project" prompt — neither applies.
   const showPortfolioWork = skillSections.length > 0;
@@ -212,7 +213,7 @@ export function ApplyForm({ role }: { role: Role }) {
     }
 
     const resumeLink = String(fd.get("resume_link") ?? "").trim();
-    const hasResume = Boolean(resumeFile) || resumeLink !== "";
+    const hasResume = isSimpleApplication ? Boolean(resumeFile) : Boolean(resumeFile) || resumeLink !== "";
 
     if (!name || !phone || !phoneValid || !email || !emailValid || !curSalValid || !expSalValid || !experience || !hasResume) {
       setError(REQUIRED_FIELDS_MESSAGE);
@@ -318,10 +319,10 @@ export function ApplyForm({ role }: { role: Role }) {
               </label>
               <input name="email" type="email" placeholder="you@email.com" className={inputClasses} />
             </div>
-            <div>
+            {!isSimpleApplication && <div>
               <label className={labelClasses}>City / Location</label>
               <input name="city" type="text" placeholder="e.g. Gurugram, Delhi" className={inputClasses} />
-            </div>
+            </div>}
           </div>
         </div>
 
@@ -354,7 +355,7 @@ export function ApplyForm({ role }: { role: Role }) {
                 </div>
               </div>
             </div>
-            <div className="mt-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+            {!isSimpleApplication && <div className="mt-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
               <div>
                 <label className={labelClasses}>Availability to join</label>
                 <select name="notice" defaultValue="" className={inputClasses}>
@@ -373,7 +374,7 @@ export function ApplyForm({ role }: { role: Role }) {
                   className={`${inputClasses} cursor-default bg-surface text-ink-2`}
                 />
               </div>
-            </div>
+            </div>}
           </div>
         )}
 
@@ -412,17 +413,19 @@ export function ApplyForm({ role }: { role: Role }) {
               <span className="text-[13px] font-medium text-[#166534]">{resumeFileName} uploaded</span>
             </div>
           )}
-          <div className="mt-2 text-xs text-ink-3">Or paste a Google Drive / Dropbox link below</div>
-          <input
-            name="resume_link"
-            type="url"
-            placeholder="https://drive.google.com/..."
-            className={`${inputClasses} mt-2`}
-          />
+          {!isSimpleApplication && <>
+            <div className="mt-2 text-xs text-ink-3">Or paste a Google Drive / Dropbox link below</div>
+            <input
+              name="resume_link"
+              type="url"
+              placeholder="https://drive.google.com/..."
+              className={`${inputClasses} mt-2`}
+            />
+          </>}
         </div>
 
-        {/* Portfolio — skipped for roles with no creative/technical skill sections */}
-        {showPortfolioWork && (
+        {/* Portfolio — skipped for simple applications and roles with no creative/technical skill sections */}
+        {!isSimpleApplication && showPortfolioWork && (
           <div className={cardClasses}>
             <div className={sectionLabelClasses}>Portfolio</div>
             <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
@@ -454,7 +457,19 @@ export function ApplyForm({ role }: { role: Role }) {
         {/* Experience */}
         <div className={cardClasses}>
           <div className={sectionLabelClasses}>Experience</div>
-          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+          {isSimpleApplication ? (
+            <div>
+              <label className={labelClasses}>
+                Total experience <span className="text-[#ef4444]">*</span>
+              </label>
+              <input
+                name="experience"
+                type="text"
+                placeholder="e.g. 1 year 6 months"
+                className={inputClasses}
+              />
+            </div>
+          ) : <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             <div>
               <label className={labelClasses}>
                 Years of relevant experience <span className="text-[#ef4444]">*</span>
@@ -475,7 +490,7 @@ export function ApplyForm({ role }: { role: Role }) {
                 ))}
               </select>
             </div>
-          </div>
+          </div>}
           {showVideo && (
             <div className="mt-3.5">
               <label className={labelClasses}>Content types edited (select all that apply)</label>
@@ -618,7 +633,7 @@ export function ApplyForm({ role }: { role: Role }) {
         )}
 
         {/* Final questions */}
-        <div className={cardClasses}>
+        {!isSimpleApplication && <div className={cardClasses}>
           <div className={sectionLabelClasses}>Final questions</div>
           {showPortfolioWork && (
             <div>
@@ -639,7 +654,7 @@ export function ApplyForm({ role }: { role: Role }) {
               ))}
             </select>
           </div>
-        </div>
+        </div>}
 
         <button
           type="submit"
@@ -680,7 +695,7 @@ export function ApplyForm({ role }: { role: Role }) {
                 <div className="mt-0.5 text-xs text-ink-2">{role.schedule}</div>
                 <div className="mt-1 text-xs font-bold text-blue">
                   {formatSalary(role)}
-                  {role.salaryDisclosed ? " / mo" : ""}
+                  {role.salaryDisclosed && !role.salaryLabel ? " / mo" : ""}
                 </div>
               </div>
             </div>

@@ -15,7 +15,7 @@ export async function GET() {
         .map(
           (role) =>
             `- [${role.title}](${siteConfig.url}/careers/${role.slug}): ${role.tagline} ${
-              role.salaryDisclosed ? `${formatSalary(role)}/month.` : "Compensation discussed personally."
+              role.salaryDisclosed && !role.salaryLabel ? `${formatSalary(role)}/month.` : formatSalary(role) + "."
             } Apply at ${siteConfig.url}/apply/${role.slug}`,
         )
         .join("\n")

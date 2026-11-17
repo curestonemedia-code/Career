@@ -202,7 +202,7 @@ export async function RoleDetail({ role }: { role: Role }) {
                   <p className="text-[10px] font-black tracking-widest text-ink-3 uppercase">
                     {role.salaryDisclosed ? "Monthly salary" : "Compensation"}
                   </p>
-                  <p className={role.salaryDisclosed ? "mt-1 text-[26px] font-black text-blue" : "mt-1 text-[15px] font-bold text-ink-2"}>
+                  <p className={role.salaryDisclosed && !role.salaryLabel ? "mt-1 text-[26px] font-black text-blue" : "mt-1 text-[15px] font-bold text-ink-2"}>
                     {formatSalary(role)}
                   </p>
                 </div>
@@ -263,7 +263,7 @@ export async function RoleDetail({ role }: { role: Role }) {
                             <p className="truncate text-[13px] font-bold text-ink">{r.title}</p>
                             <p className="text-[11px] text-ink-2">
                               {formatSalary(r)}
-                              {r.salaryDisclosed ? " / mo" : ""}
+                              {r.salaryDisclosed && !r.salaryLabel ? " / mo" : ""}
                             </p>
                           </div>
                           <ArrowRightIcon

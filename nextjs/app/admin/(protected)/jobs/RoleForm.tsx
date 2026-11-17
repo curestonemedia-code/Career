@@ -199,6 +199,16 @@ export function RoleForm({ role }: { role?: Role }) {
             {fieldError(state?.fieldErrors, "salaryMax")}
           </div>
         </div>
+        <div className="mt-3.5">
+          <label className={labelClasses}>Public salary label (optional)</label>
+          <input
+            name="salaryLabel"
+            defaultValue={role?.salaryLabel}
+            placeholder="Based on experience and skills"
+            className={inputClasses}
+          />
+          <p className="mt-1.5 text-xs text-ink-3">Use this when the role needs a plain-language salary message instead of a numeric range.</p>
+        </div>
         <label className="mt-3.5 flex cursor-pointer items-center gap-2.5 rounded-[7px] border border-line-2 px-3.25 py-2.5 text-sm text-ink transition-colors hover:border-blue-mid">
           <input
             type="checkbox"
@@ -208,6 +218,16 @@ export function RoleForm({ role }: { role?: Role }) {
           />
           Publicly disclose this salary range
         </label>
+        <div className="mt-3.5">
+          <label className={labelClasses}>Application form</label>
+          <select name="applicationMode" defaultValue={role?.applicationMode ?? "standard"} className={inputClasses}>
+            <option value="standard">Standard application</option>
+            <option value="simple">Simple application (salary, experience, resume)</option>
+          </select>
+          <p className="mt-1.5 text-xs text-ink-3">
+            Simple applications keep the public form focused on the essentials for operational and patient-facing roles.
+          </p>
+        </div>
         <p className="mt-1.5 text-xs text-ink-3">
           When unchecked, the salary range above is kept for internal reference only — the public
           site and apply form show &quot;Compensation discussed personally&quot; instead and don&apos;t ask

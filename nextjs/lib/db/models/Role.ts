@@ -54,11 +54,17 @@ const RoleSchema = new Schema(
     datePosted: { type: Date, required: true },
     validThrough: { type: Date, required: true },
     salary: { type: SalarySchema, required: true },
+    salaryLabel: { type: String, trim: true },
     // Public display + the apply form's salary question both key off this —
     // some roles (e.g. clinical hires) are discussed personally rather than
     // posted with a number. salary above is still recorded for internal
     // reference even when this is false.
     salaryDisclosed: { type: Boolean, default: true },
+    applicationMode: {
+      type: String,
+      enum: ["standard", "simple"],
+      default: "standard",
+    },
     responsibilities: {
       type: [String],
       required: true,

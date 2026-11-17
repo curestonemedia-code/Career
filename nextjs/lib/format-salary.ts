@@ -6,7 +6,9 @@
 export function formatSalary(role: {
   salaryDisclosed: boolean;
   salary: { min: number; max: number };
+  salaryLabel?: string;
 }): string {
   if (!role.salaryDisclosed) return "Compensation discussed personally";
+  if (role.salaryLabel) return role.salaryLabel;
   return `₹${role.salary.min.toLocaleString("en-IN")} - ₹${role.salary.max.toLocaleString("en-IN")}`;
 }

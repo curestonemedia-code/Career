@@ -77,7 +77,7 @@ export function jobPostingSchema(role: Role) {
         addressCountry: siteConfig.addressLines.country,
       },
     },
-    ...(role.salaryDisclosed && {
+    ...(role.salaryDisclosed && !role.salaryLabel && role.salary.max > 0 && {
       baseSalary: {
         "@type": "MonetaryAmount",
         currency: role.salary.currency,
